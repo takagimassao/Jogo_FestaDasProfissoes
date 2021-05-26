@@ -1,18 +1,12 @@
 <template lang="html">
-    <div>
-        <div class="session-content__profession-card">
-            <span>{{professionTitle}}</span>
-            <button v-if="$store.state.jobs[professionID].isSelected==true" v-on:click="$store.commit('unselectJob', professionID)">X</button>
-        </div>
+    <div class="section-content__profession-card">
+        <slot name="title">Nome da Profissão</slot>
+        <slot name="button"></slot>
     </div>
 </template>
 <script>
 export default {
-    name: "professionCard",
-    props: {
-        professionID: Number,
-        professionTitle: String
-    }
+    name: "professionCard"
 }
 </script>
 <style lang="css">

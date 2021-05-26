@@ -114,6 +114,23 @@ export default createStore({
       var jobList = state.groups[payload.groupID].selectedJobs;
       state.jobs[payload.jobID].isSelected = false;
       jobList.push(payload.jobID);
+    },
+    addGroup(state) {
+      console.log(state.groups)
+      try {
+        var newGroup = {
+          id: state.groups.length,
+          groupTitle: "",
+          //groupTitle: "group " + (state.groups.length+1),
+          selectedJobs: []
+        }
+        console.log(state.groups);
+        state.groups.push(newGroup);
+      }
+      catch (event) {
+
+      }
+      console.log(state.groups)
     }
   },
   actions: {

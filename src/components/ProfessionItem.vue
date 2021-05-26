@@ -19,9 +19,11 @@ export default {
 <style lang="css">
     .profession-item__card {
         text-align: left;
+        background-color: white;
         box-shadow: 0.5rem 0.5rem 1rem #9f9f9f;
         padding: 0.75rem 1.5rem 2rem;
         border-radius: 0.5rem;
+        margin-bottom: 1.3em;
     }
     .profession-item__card button {
         display: block;

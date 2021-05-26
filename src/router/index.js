@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import listaDeConvidados from '../views/ListaDeConvidados.vue'
 import rodasDeConversa from '../views/RodasDeConversa.vue'
+import justificativaFavoritos from '../views/JustificativaFavoritos.vue'
+import nomearGrupos from '../views/NomearGrupos.vue'
 
 const routes = [
   {
@@ -9,7 +11,7 @@ const routes = [
     component: listaDeConvidados
   },
   {
-    path: '/rodasDeConversa',
+    path: '/RodasDeConversa',
     name: 'RodasDeConversa',
     component: rodasDeConversa
   },
@@ -20,6 +22,16 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/NomearGrupos',
+    name: 'NomearGrupos',
+    component: nomearGrupos
+  },
+  {
+    path: '/JustificativaFavoritos',
+    name: 'JustificativaFavoritos',
+    component: justificativaFavoritos
   }
 ]
 

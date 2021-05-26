@@ -17,38 +17,16 @@
   </taskWording>
 
   <div class="row">
-
-    <div class="col-3">
-      <sectionLeft>
-        <template v-slot:header>
-          <h2>Convidados</h2>
-        </template>
-        <template v-slot:sectionBody>
-          <div
-            v-for="job in checkInvited" :key="$store.state.jobs.id" >
-            <professionCard>
-              <template v-slot:title>
-                {{job.jobTitle}}
-              </template>
-              <template v-slot:button>
-                <button @click="pickJob(job.id)">
-                    ->>
-                </button>
-              </template>
-            </professionCard>
-          </div> <!-- END: v-for -->
-        </template> <!-- END: v-slot sectionBody -->
-      </sectionLeft>
-    </div> <!-- END: col-3 -->
-
-    <div class="col-9">
+    <div class="col-12">
       <button @click="addGroup">Criar novo grupo</button>
       <div class="group-list"
         v-for="group, groupIndex in $store.state.groups" :key="$store.state.groups.id"
       >
         <sectionRight>
           <template v-slot:header>
+            <!-- HERE -->
               <h3>{{group.groupTitle}}</h3>
+              <label :for="groupNames[groupIndex]">Nome do grupo:</label> <input type="text" :name="groupNames[groupIndex]" :id="groupNames[groupIndex]" />
           </template>
           <template v-slot:sectionBody>
             <div
@@ -91,32 +69,29 @@
       </div> <!-- END: .modal__card  -->
     </div> <!-- END: .modal__mask  -->
   </div> <!-- END: .modal  -->
-
+  
 </template>
 
 <script>
 // @ is an alias to /src
 import taskWording from '@/components/TaskWording.vue'
-import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionCard from '@/components/ProfessionCard.vue'
-import draggableProfessionCard from '@/components/DraggableProfessionCard.vue'
 import {mapState, mapGetters} from "vuex";
 
 export default {
-  name: 'rodasDeConversa',
+  name: 'nomearGrupos',
   components: {
     taskWording,
-    sectionLeft,
     sectionRight,
     professionCard,
-    draggableProfessionCard
   },
   data: function() {
     return {
       thisProfessionTitle: "Parent Title",
       isModalVisible: false,
-      focusedJobID: 0
+      focusedJobID: 0,
+      groupNames: []
     }
   },
   computed: {
@@ -125,9 +100,6 @@ export default {
     },
     focusedJobTitle() {
       return this.jobs[this.focusedJobID].jobTitle;
-    },
-    group1JobList() {
-      return 
     },
     //VueX Storage getters
     ...mapGetters([
@@ -162,12 +134,13 @@ export default {
         groupID: groupID
       })
     },
-    addGroup() {
-      return this.$store.commit('addGroup')
-
+    initializeGroupNames() {
+      var i;
+      for(i = 0; i < this.$store.state.groups.length; i++) {
+        this.groupNames.push("groupName"+i);
+      }
+      console.log(this.groupNames);
     },
-
-    //modal
     showModal() {
       this.isModalVisible = true;
     },
@@ -176,7 +149,10 @@ export default {
       // window.alert("to saindo, vlw, flw!");
       next();
     }
-  } // END methods
+  }, // END methods
+  created() {
+    this.initializeGroupNames();
+  }
 }  // END export
 </script>
 

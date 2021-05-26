@@ -1,4 +1,4 @@
-<template v-slot:cardBody lang="html">
+<template v-slot:sectionBody lang="html">
     <div class="row">
         <div 
             v-for="job in $store.state.jobs" :key="$store.state.jobs.id" 
@@ -17,7 +17,7 @@
 import professionItem from '@/components/ProfessionItem.vue'
 
 export default {
-    name: "professionList",
+    name: "professionDescriptionList",
     components: {
         professionItem
     }

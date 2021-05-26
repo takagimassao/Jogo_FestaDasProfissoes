@@ -1,49 +1,68 @@
 <template lang="html">
-  <div class="container">
-    <inviteHeader/>
-    <div class="row">
-      <div class="col-9">
-        <div class="session-card--left session-card--big">
-          <div class="session-card__content">
-            <h2>Profissões</h2>
-            <professionList />
-          </div>
-        </div> 
-      </div>
-      <div class="col-3">
-        <div class="session-card--right session-card--small">
-          <div class="session-card__content session-card__content--invited">
-            <h2>Convidados</h2>
-            <div
-              v-for="job in areInvited" :key="$store.state.jobs.id" >
-              <!-- <professionCard 
-                :profession-title="job.jobTitle"
-                :professionID="job.id" /> -->
-              <div class="session-content__profession-card">
-                  <span>{{job.jobTitle}}</span>
-                  <button v-on:click="$store.commit('unselectJob', job.id)">X</button>
-              </div>
-            </div>
-            
-        
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <taskWording>
+    <template v-slot:header>
+      <h1>Lista de convidados</h1>
+    </template>
+    <template v-slot:wording>
+      <p>Você irá dar uma festa e cada profissão representa um convidado. Decida quais profissões você convidaria para a festa e quais você não vai convidar.</p>
+      <p>Quando estiver satisfeito, avance para a próxima etapa.</p>
+    </template>
+    <template v-slot:router-btn>
+      <router-link 
+          type="submit"
+          to="/RodasDeConversa">
+          Avançar
+      </router-link>
+    </template>
+  </taskWording>
+  <div class="row">
+    <div class="col-9">
+      <sectionLeft>
+        <template v-slot:sectionBody>
+          <professionDescriptionList />
+        </template>
+      </sectionLeft>
+    </div> <!-- END: col-9 -->
+
+    <div class="col-3">
+      <sectionRight>
+        <template v-slot:header>
+          <h2>Convidados</h2>
+        </template>
+        <template v-slot:sectionBody>
+          <div
+            v-for="job in areInvited" :key="$store.state.jobs.id" >
+            <professionCard>
+              <template v-slot:title>
+                {{job.jobTitle}}
+              </template>
+              <template v-slot:button>
+                <button v-on:click="$store.commit('unselectJob', job.id)">X</button>
+              </template>
+            </professionCard>
+          </div> <!-- END: v-for -->
+        </template> <!-- END: v-slot sectionBody -->
+      </sectionRight>
+    </div> <!-- END: col-3 -->
+    
+  </div> <!-- END: row -->
 </template>
 
 <script>
 // @ is an alias to /src
-import inviteHeader from '@/components/InviteHeader.vue'
-import professionList from '@/components/ProfessionList.vue'
-import professionCard from '@/components/professionCard.vue'
+import taskWording from '@/components/TaskWording.vue'
+import sectionLeft from '@/components/SectionLeft.vue'
+import sectionRight from '@/components/SectionRight.vue'
+import professionDescriptionList from '@/components/ProfessionDescriptionList.vue'
+import professionCard from '@/components/ProfessionCard.vue'
 
 export default {
   name: 'listaDeConvidados',
   components: {
-    inviteHeader,
-    professionList,
+    taskWording,
+    sectionLeft,
+    sectionRight,
+    professionDescriptionList,
     professionCard
   },
   computed: {
@@ -64,24 +83,24 @@ export default {
 </script>
 
 <style lang="css">
-  .session-card__content {
+  .section__content {
     background-color: greenyellow;
   }
-  .session-card__content .profession-item__card {
+  .section__content .profession-item__card {
     margin-bottom: 1.25rem;
     
     background-color: white;
   }
-  .session-card__content--invited {
+  .section__content--invited {
     display: flex;
     flex-direction: column;
     background-color: hotpink;
   }
-  .session-card__content--invited .session-content__profession-card {
+  .section__content--invited .section-content__profession-card {
     margin-bottom: 1.25rem;
   }
 
-  .session-content__profession-card {
+  .section-content__profession-card {
     display: flex;
     justify-content: space-between;
     background-color: white;
@@ -89,12 +108,12 @@ export default {
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
   }
-  .session-content__profession-card span {
+  .section-content__profession-card span {
     font-size: 1rem;
     font-weight: bold;
     margin: 0 auto 0 0;
   } 
-  .session-content__profession-card button {
+  .section-content__profession-card button {
     margin: 0 0 0 auto;
   }
 </style>
