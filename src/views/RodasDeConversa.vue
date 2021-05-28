@@ -8,11 +8,12 @@
       <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
     </template>
     <template v-slot:router-btn>
-      <router-link 
+      <button @click="updateStore">push to store</button>
+      <!-- <router-link 
           type="submit"
           to="/NomearGrupos">
           Avançar
-      </router-link>
+      </router-link> -->
     </template>
   </taskWording>
 
@@ -24,19 +25,70 @@
           <h2>Convidados</h2>
         </template>
         <template v-slot:sectionBody>
-          <div
-            v-for="job in checkInvited" :key="$store.state.jobs.id" >
-            <professionCard>
-              <template v-slot:title>
-                {{job.jobTitle}}
+<div class="wrapper">
+  
+            <!-- AAAAAH -->
+            <div>draggable</div>
+            <!-- END: AAAAAH -->
+            <hr>
+            <h3>List 1</h3>
+            <draggable
+              :list="array1"
+              group="cars"
+              itemKey="name"
+            >
+              <template #item="{ element, index }">
+                <professionCard>
+                  <template v-slot:title>
+                    {{element.name}}
+                  </template>
+                  <template v-slot:button>
+                    <button @click="pickJob(element.id)">
+                        ->>
+                    </button>
+                  </template>
+                </professionCard>
               </template>
-              <template v-slot:button>
-                <button @click="pickJob(job.id)">
-                    ->>
-                </button>
+            </draggable>
+
+
+            <hr>
+            <h3>List 2</h3>
+            <draggable
+              :list="array2"
+              group="cars"
+              itemKey="name"
+            >
+              <template #item="{ element, index }">
+                <professionCard>
+                  <template v-slot:title>
+                    {{element.name}}
+                  </template>
+                  <template v-slot:button>
+                    <button @click="pickJob(element.id)">
+                        ->>
+                    </button>
+                  </template>
+                </professionCard>
               </template>
-            </professionCard>
-          </div> <!-- END: v-for -->
+            </draggable>
+            
+            <hr>
+
+            <div
+              v-for="job in checkInvited" :key="$store.state.jobs.id" >
+              <professionCard>
+                <template v-slot:title>
+                  {{job.jobTitle}}
+                </template>
+                <template v-slot:button>
+                  <button @click="pickJob(job.id)">
+                      ->>
+                  </button>
+                </template>
+              </professionCard>
+            </div> <!-- END: v-for -->
+</div>
         </template> <!-- END: v-slot sectionBody -->
       </sectionLeft>
     </div> <!-- END: col-3 -->
@@ -100,7 +152,7 @@ import taskWording from '@/components/TaskWording.vue'
 import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionCard from '@/components/ProfessionCard.vue'
-import draggableProfessionCard from '@/components/DraggableProfessionCard.vue'
+import draggable from 'vuedraggable'
 import {mapState, mapGetters} from "vuex";
 
 export default {
@@ -110,18 +162,44 @@ export default {
     sectionLeft,
     sectionRight,
     professionCard,
-    draggableProfessionCard
+    draggable
   },
   data: function() {
     return {
       thisProfessionTitle: "Parent Title",
       isModalVisible: false,
-      focusedJobID: 0
+      focusedJobID: 0,
+      array1: [
+        {
+          name: "jojob 1",
+          id: 1
+        },{
+          name: "jojob 3",
+          id: 3
+        }
+      ],
+      array2: [
+        {
+          name: "jojob 2",
+          id: 2
+        },{
+          name: "jojob 4",
+          id: 4
+        }
+      ]
     }
   },
   computed: {
     checkInvited() {
       return this.$store.getters.getInvited;
+    },
+    invitedList: {
+      get() {
+        return this.$store.getters.getInvited;
+      },
+      set(value) {
+        this.$store.commit('updateList', newArray)
+      }
     },
     focusedJobTitle() {
       return this.jobs[this.focusedJobID].jobTitle;
@@ -165,6 +243,9 @@ export default {
     addGroup() {
       return this.$store.commit('addGroup')
 
+    },
+    updateStore() {
+      this.$store.comit(updateLists, {lists});
     },
 
     //modal
