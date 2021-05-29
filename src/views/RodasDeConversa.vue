@@ -25,22 +25,16 @@
           <h2>Convidados</h2>
         </template>
         <template v-slot:sectionBody>
-<div class="wrapper">
-  
-            <!-- AAAAAH -->
-            <div>draggable</div>
-            <!-- END: AAAAAH -->
-            <hr>
-            <h3>List 1</h3>
+          <div class="wrapper">
             <draggable
-              :list="array1"
+              :list="invitedList"
               group="cars"
-              itemKey="name"
+              itemKey="jobTitle"
             >
               <template #item="{ element, index }">
                 <professionCard>
                   <template v-slot:title>
-                    {{element.name}}
+                    {{element.jobTitle}} ID: {{element.id}}
                   </template>
                   <template v-slot:button>
                     <button @click="pickJob(element.id)">
@@ -50,72 +44,59 @@
                 </professionCard>
               </template>
             </draggable>
-
-
-            <hr>
-            <h3>List 2</h3>
-            <draggable
-              :list="array2"
-              group="cars"
-              itemKey="name"
-            >
-              <template #item="{ element, index }">
-                <professionCard>
-                  <template v-slot:title>
-                    {{element.name}}
-                  </template>
-                  <template v-slot:button>
-                    <button @click="pickJob(element.id)">
-                        ->>
-                    </button>
-                  </template>
-                </professionCard>
-              </template>
-            </draggable>
-            
-            <hr>
-
-            <div
-              v-for="job in checkInvited" :key="$store.state.jobs.id" >
-              <professionCard>
-                <template v-slot:title>
-                  {{job.jobTitle}}
-                </template>
-                <template v-slot:button>
-                  <button @click="pickJob(job.id)">
-                      ->>
-                  </button>
-                </template>
-              </professionCard>
-            </div> <!-- END: v-for -->
-</div>
+          </div>
         </template> <!-- END: v-slot sectionBody -->
       </sectionLeft>
     </div> <!-- END: col-3 -->
 
     <div class="col-9">
-      <button @click="addGroup">Criar novo grupo</button>
+      <button @click="addGroup()">Criar novo grupo</button>
       <div class="group-list"
-        v-for="group, groupIndex in $store.state.groups" :key="$store.state.groups.id"
+        v-for="group, groupIndex in groupList" :key="groupIndex"
       >
         <sectionRight>
           <template v-slot:header>
-              <h3>{{group.groupTitle}}</h3>
+              <div class="wrapper row">
+                <h3 class="col-11">{{group.groupTitle}}</h3>
+                <button @click="delGroup(group.id)" class="col-1">X</button>
+              </div>
           </template>
           <template v-slot:sectionBody>
-            <div
-              v-for="job in group.selectedJobs"
+            <div class="wrapper">
+              <!-- <div
+                v-for="job in group.selectedJobs" :key="job"
+              >
+                <div class="section-content__profession-card">
+                  <span>{{$store.state.jobs[job].jobTitle}}</span>
+                  <button @click="$store.commit('removeJobFromGroup', {
+                    jobID: job,
+                    groupID: groupIndex})"
+                  >
+                    X
+                  </button>
+                </div> !-- END: .section-content__profession-card  --
+              </div> !-- END: v-for job  -- -->
+
+            <draggable
+              :list="group.selectedJobs"
+              group="cars"
+              itemKey="jobTitle"
             >
-              <div class="section-content__profession-card">
-                <span>{{$store.state.jobs.[job].jobTitle}}</span>
-                <button @click="$store.commit('removeJobFromGroup', {
-                  jobID: job,
-                  groupID: groupIndex})"
-                >
-                  X
-                </button>
-              </div> <!-- END: .section-content__profession-card  -->
-            </div> <!-- END: v-for job  -->
+              <template #item="{ element, index }">
+                <professionCard>
+                  <template v-slot:title>
+                    <span> {{element.jobTitle}} ID: {{element.id}} </span>
+                  </template>
+                  <template v-slot:button>
+                    <button @click="pickJob(element.id)">
+                        ->>
+                    </button>
+                  </template>
+                </professionCard>
+              </template>
+            </draggable>
+
+            </div>
           </template>
         </sectionRight>
       </div> <!-- END: v-for group  -->
@@ -153,7 +134,7 @@ import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionCard from '@/components/ProfessionCard.vue'
 import draggable from 'vuedraggable'
-import {mapState, mapGetters} from "vuex";
+import {mapState, mapGetters, mapActions} from "vuex";
 
 export default {
   name: 'rodasDeConversa',
@@ -169,55 +150,52 @@ export default {
       thisProfessionTitle: "Parent Title",
       isModalVisible: false,
       focusedJobID: 0,
-      array1: [
+      groupList: [],
+      invitedList: [
         {
-          name: "jojob 1",
-          id: 1
-        },{
-          name: "jojob 3",
-          id: 3
+            id: 2,
+            jobTitle: "Job 3",
+            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
+            isSelected: false
+        },
+        {
+            id: 0,
+            jobTitle: "Job 1",
+            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
+            isSelected: true
+        },
+        {
+            //jobs[4]
+            id: 4,
+            jobTitle: "Job 5",
+            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
+            isSelected: true
+        },
+        {
+            id: 3,
+            jobTitle: "Job 4",
+            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
+            isSelected: true
         }
       ],
-      array2: [
-        {
-          name: "jojob 2",
-          id: 2
-        },{
-          name: "jojob 4",
-          id: 4
-        }
-      ]
+      maxGroupId: 0
     }
   },
   computed: {
-    checkInvited() {
-      return this.$store.getters.getInvited;
-    },
-    invitedList: {
-      get() {
-        return this.$store.getters.getInvited;
-      },
-      set(value) {
-        this.$store.commit('updateList', newArray)
-      }
-    },
+    // invitedList: {
+    //   get() {
+    //     return this.getInvitedList;
+    //   },
+    //   set(jobsList) {
+    //     this.updateInvitedJobs(jobsList);
+    //   }
+    // },
     focusedJobTitle() {
       return this.jobs[this.focusedJobID].jobTitle;
     },
-    group1JobList() {
-      return 
-    },
     //VueX Storage getters
     ...mapGetters([
-      'getJobs',
-      'getJob',
-      'getJobTitle',
-      'getInvited',
-      'getJobDescription',
-      'getGroup',
-      'getGoups',
-      'getGroupTitle',
-      'getGroupJobList'
+      'getInvitedList',
     ]),
     ...mapState([
       'jobs',
@@ -225,6 +203,9 @@ export default {
        ])
   }, 
   methods: {
+    ...mapActions ([
+      'updateGroups'
+    ]),
     printMsg: function(jobID) {
       return console.log("some shit has happened with job.id" + jobID);
     },
@@ -233,21 +214,24 @@ export default {
       this.showModal();
     },
     addJobInGroup(jobID, groupID) {
-      console.log(jobID);
-      console.log(groupID);
-      return this.$store.commit('insertJobInGroup',{
+      return this.$store.commit('addJobToGroup',{
         jobID: jobID,
         groupID: groupID
       })
     },
     addGroup() {
-      return this.$store.commit('addGroup')
-
+      return this.groupList.push({
+        id: this.maxGroupId,
+        //placeholder - remember to remove before production
+        groupTitle: 'group ' + this.maxGroupId++,
+        selectedJobs: []
+      })
     },
-    updateStore() {
-      this.$store.comit(updateLists, {lists});
+    delGroup(groupID) {
+      console.log(this.groupList);
+      this.groupList = this.groupList.filter(g => g.id !== groupID);
+      return 
     },
-
     //modal
     showModal() {
       this.isModalVisible = true;

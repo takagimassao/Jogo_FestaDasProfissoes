@@ -91,7 +91,8 @@ export default {
       thisProfessionTitle: "Parent Title",
       isModalVisible: false,
       focusedJobID: 0,
-      groupNames: []
+      invitedJobs: [],
+      groups: []
     }
   },
   computed: {
@@ -129,7 +130,7 @@ export default {
     addJobInGroup(jobID, groupID) {
       console.log(jobID);
       console.log(groupID);
-      return this.$store.commit('insertJobInGroup',{
+      return this.$store.commit('addJobToGroup',{
         jobID: jobID,
         groupID: groupID
       })

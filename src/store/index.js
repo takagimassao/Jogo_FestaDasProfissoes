@@ -47,11 +47,18 @@ export default createStore({
                 isSelected: true
             }
         ],
-        invitedJobs: [],
+        invitedJobs: [2, 4, 5, 1],
+        //invitedJobs: [],
         groups: [{
                 id: 0,
                 groupTitle: "group 1",
-                selectedJobs: [0, 1]
+                selectedJobs: [{
+                  title: 'Job 1',
+                  id: '0'
+                },{
+                  title: 'Job 2',
+                  id: '0'
+                },]
             },
             {
                 id: 1,
@@ -87,79 +94,130 @@ export default createStore({
                 selectedGroup: Number,
                 justification: ''
             }
-        }
+        },
+        maxGroupID: 2
     },
     mutations: {
-        selectJob(state, jobID) {
-            state.jobs[jobID].isSelected = true;
-        },
-        unselectJob(state, jobID) {
-            state.jobs[jobID].isSelected = false;
-        },
-        removeJobFromGroup(state, payload) {
-            // Adiciona na lista de Convidados
-            state.jobs[payload.jobID].isSelected = true;
-            console.log("Adicionando " + payload.jobID + " no grupo " + payload.groupID);
-            console.log(state.jobs);
-            // Remove job do group
-            state.groups[payload.groupID].selectedJobs = state.groups[payload.groupID].selectedJobs.filter(e => e !== payload.jobID);
-        },
-        insertJobInGroup(state, payload) {
-            // Remove da lista de Convidados
-            var jobList = state.groups[payload.groupID].selectedJobs;
-            state.jobs[payload.jobID].isSelected = false;
-            jobList.push(payload.jobID);
-        },
-        addGroup(state) {
-            try {
-                var newGroup = {
-                    id: state.groups.length,
-                    groupTitle: "",
-                    //groupTitle: "group " + (state.groups.length+1),
-                    selectedJobs: []
-                }
-                console.log(state.groups);
-                state.groups.push(newGroup);
-            } catch (event) {}
-        },
-        updateLists(state, payload) {
-            state.
-        }
-
+      selectJob(state, jobID) {
+          state.jobs[jobID].isSelected = true;
+      },
+      unselectJob(state, jobID) {
+          state.jobs[jobID].isSelected = false;
+      },
+      updateInvitedJobs(state, array) {
+        state.invitedJobs = array;
+      },
+      addGroup(state) {
+        try {
+            var newGroup = {
+                id: ++state.maxGroupID,
+                groupTitle: "",
+                selectedJobs: []
+            }
+            state.groups.push(newGroup);
+        } catch(e) {console.log(e);}
+      },
+      removeGroup(state, groupID) {
+        try {
+          state.groups = state.groups.filter(e => e !== groupID);
+        } catch(e) {console.log(e);}
+      },
+      addJobToGroup(state, payload) {
+        var jobList = state.groups[payload.groupID].selectedJobs;
+        state.jobs[payload.jobID].isSelected = false;
+        jobList.push(payload.jobID);
+      },
+      removeJobFromGroup(state, payload) {
+        state.jobs[payload.jobID].isSelected = true;
+        state.groups[payload.groupID].selectedJobs = state.groups[payload.groupID].selectedJobs.filter(e => e !== payload.jobID);
+      },
+      updateGroups (state, payload) {
+        state.groups = payload.groups;
+      },
+      selectFavorite(state, groupID) {
+        state.favorites.selectedGroups.push(payload.groupID);
+      },
+      unselectFavotire(state, groupID) {
+        state.favorites.selectedGroups.filter(e => e !== payload.groupID);
+      },
+      selectExpeled(state, groupID) {
+        state.expeled.selectedGroup = groupID;
+      },
+      addFavoriteJustification(state, payload) {
+        state.favorites.selectedGroups[payload.groupID].justification = payload.text;
+      }
     },
     actions: {
-
+      updateInvitedJobs({commit}, jobs) {
+        commit('updateInvitedJobs', jobs);
+      },
+      updateGroups({commit, state}, groups) {
+        console.log("wtf?");
+        try {
+          if(payload.groups.selectedJobs.length < 1) {
+            throw "Cada Grupinho deve possuir ao menos uma profissão.";
+          }
+          else {
+            commit('updateGroups', groups);
+          }
+        } 
+        catch(e) {
+          console.log(e);
+        }
+      }
     },
     getters: {
         // Property-style getters (cached)
         getInvited: state => {
             return state.jobs.filter(j => j.isSelected == true);
         },
+        getInvitedList: state => {
+          var temp = state.jobs.filter(j => j.isSelected == true);
+          return temp;
+        },
+        getJobsInGroup: state => groupIndex => {
+          console.log("wasgoinon?");
+          console.log(state.groups[groupIndex]);
+          var temp = state.jobs.filter(j => state.groups[groupIndex].selectedJobs.includes(j.id));
+          console.log(temp)
+          return temp;
+        },
+        getJobsInGroupList: state => {
+          var jobList = [];
+          var groupList = [];
+          for (groupIndex=0; groupIndex < state.groups.length; groupIndex++) {
+            temp.push(state.jobs.filter(j => state.groups[groupIndex].selectedJobs.includes(j.id)));
+            return temp;
+          }
+        },
         //Method-style getters (not cached)
         getJob: state => jobID => {
-            return state.jobs[jobID]
+            return state.jobs[jobID];
         },
         getJobTitle: state => jobID => {
-            return state.jobs[jobID].jobTitle
+            return state.jobs[jobID].jobTitle;
         },
         getJobDescription: state => jobID => {
-            return state.jobs[jobID].jobDescription
+            return state.jobs[jobID].jobDescription;
+        },
+        getGroups: state => {
+          return state.groups;
         },
         getGroup: state => groupID => {
-            return state.groups[groupID]
+            return state.groups[groupID];
         },
         getGroupTitle: state => groupID => {
-            return state.groups[groupID].groupTitle
+            return state.groups[groupID].groupTitle;
         },
         getGroupJobList: state => groupID => {
-            return state.groups[groupID].selectedJobs
+            return state.groups[groupID].selectedJobs;
         },
         getGroupJobTitleList: (state, getters) => groupID => {
-            var jobTitleList = []
+            var jobTitleList = [];
             for (jobID in getters.getGroupJobList(groupID)) {
                 jobTitleList.push(state.jobs[jobID].jobTitle);
             }
-            return jobTitleList
+            return jobTitleList;
         }
     },
     modules: {
