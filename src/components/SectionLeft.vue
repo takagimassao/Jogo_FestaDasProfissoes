@@ -21,7 +21,7 @@ export default {
     border-radius: 0 24px 24px 0;
   }
   
-  .section__body {
+  .section--left {
     padding: 1rem 2rem 2rem;
   }
 

@@ -11,45 +11,41 @@
     <template v-slot:router-btn>
       <router-link 
           type="submit"
-          to="/JustificativaExpulso">
+          to="/Obrigado">
           Avançar
       </router-link>
     </template>
   </taskWording>
-    <div class="group-list"
-        v-for="group, groupIndex in getFavoritedGroups" :key="groupIndex"
-    >
-        <div class="row">
-            <div class="col-8">
-                <sectionLeft>
-                    <template v-slot:header>
-                        <h3>{{group.groupTitle}}</h3>
-                    </template>
-                    <template v-slot:sectionBody>
-                        <div class="wrapper">
-                            <div v-for="job in group.selectedJobs" :key="job">
-                                <professionCard :jobTitle="job.jobTitle" />
-                            </div>
+    <div class="row">
+        <div class="col-8">
+            <sectionLeft>
+                <template v-slot:header>
+                    <h3>{{getDislikedGroup.groupTitle}}</h3>
+                </template>
+                <template v-slot:sectionBody>
+                    <div class="wrapper">
+                        <div v-for="job in getDislikedGroup.selectedJobs" :key="job">
+                            <professionCard :jobTitle="job.jobTitle" />
                         </div>
-                    </template>
-                </sectionLeft>
-            </div>
-            <div class="col-4">
-                <sectionRight>
-                    <template v-slot:header>
-                        <span> Justificativa </span>
-                    </template>
-                    <template v-slot:sectionBody>
-                        <input
-                            type="textarea"
-                            v-model="group.justification"
-                            placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
-                        >
-                    </template>
-                </sectionRight>
-            </div>
+                    </div>
+                </template>
+            </sectionLeft>
         </div>
-    </div> <!-- END: .group-list v-for group  -->
+        <div class="col-4">
+            <sectionRight>
+                <template v-slot:header>
+                    <span> Justificativa </span>
+                </template>
+                <template v-slot:sectionBody>
+                    <input
+                        type="textarea"
+                        v-model="getDislikedGroup.justification"
+                        placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
+                    >
+                </template>
+            </sectionRight>
+        </div>
+    </div>
 
 
 
@@ -61,7 +57,7 @@ import taskWording from '@/components/TaskWording.vue'
 import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionCard from '@/components/ProfessionCard.vue'
-import {mapGetters} from "vuex"
+import {mapGetters, mapMutations} from "vuex"
 
 export default {
   name: 'nomearGrupos',
@@ -74,14 +70,14 @@ export default {
   computed: {
     //VueX Storage getters
     ...mapGetters([
-      'getFavoritedGroups',
+      'getDislikedGroup',
       'getState'
     ])
     // there should be a computed object to bind the input value to vuex store. Next version should take care of this.
   },
   methods: {
-    validateFavoritesJustification() {
-      if(this.getFavoritedGroups.some(g => g.justification.length < 10)) {
+    validateDislikesJustification() {
+      if(this.getDislikedGroup.justification.length < 10) {
         window.alert("Explique em maiores detalhes o motivo de escolher esse(s) Grupinho(s) como favorito(s)")
         return false
       }
@@ -92,7 +88,7 @@ export default {
   }, // END methods
   //Vue Route
   beforeRouteLeave: function(to, from, next) {
-    if (this.validateFavoritesJustification()) {
+    if (this.validateDislikesJustification()) {
       next();
     }
   }

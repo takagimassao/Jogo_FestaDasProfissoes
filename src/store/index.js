@@ -19,90 +19,144 @@ export default createStore({
                 id: 0,
                 jobTitle: "Job 1",
                 jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-                isSelected: true
             },
             {
                 id: 1,
                 jobTitle: "Job 2",
-                jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-                isSelected: true
+                jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
             },
             {
                 id: 2,
                 jobTitle: "Job 3",
                 jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-                isSelected: false
             },
             {
                 id: 3,
                 jobTitle: "Job 4",
                 jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-                isSelected: true
             },
             {
                 //jobs[4]
                 id: 4,
                 jobTitle: "Job 5",
                 jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-                isSelected: true
             }
         ],
-        invitedJobs: [2, 4, 5, 1],
-        //invitedJobs: [],
-        groups: [{
-                id: 0,
-                groupTitle: "group 1",
-                selectedJobs: [{
-                  title: 'Job 1',
-                  id: '0'
-                },{
-                  title: 'Job 2',
-                  id: '0'
-                },]
-            },
-            {
-                id: 1,
-                groupTitle: "group 2",
-                selectedJobs: [2]
-            },
-            {
-                id: 2,
-                groupTitle: "",
-                selectedJobs: [4]
-            }
-        ],
-        favorites: {
-            selectedGroups: [1, 3],
-            justification: ""
-        },
-        expeled: {
-            selectedGroup: 2,
-            justification: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam."
-        },
+        // ---- invitedJobs[] example ----
+        // invitedJobs: [
+        //   {
+        //       id: 2,
+        //       jobTitle: "Job 3"
+        //   }
+        // ],
+        
+        invitedJobs: [],
+        groups: [],
+        // ---- groups[] example ----
+        // groups: [
+        //   {
+        //       id: 0,
+        //       groupTitle: "Red",
+        //       selectedJobs: [{
+        //           jobTitle: 'Job 1',
+        //           id: 0
+        //         },
+        //         {
+        //           jobTitle: 'Job 2',
+        //           id: 1
+        //         }
+        //       ],
+        //       // -1 for 'disliked', 0 for 'neutral' and 1 for 'favorited'
+        //       preference: -1,
+        //       justification: "Porque é vermelho é violento"
+        //   },
+        //   {
+        //       id: 1,
+        //       groupTitle: "Green",
+        //       selectedJobs: [{
+        //         jobTitle: 'Job 4',
+        //         id: 3
+        //       }],
+        //       preference: 0,
+        //       justification: ""
+        //   },          
+        //   {
+        //     id: 3,
+        //     groupTitle: "Blue",
+        //     selectedJobs: [
+        //       {
+        //         jobTitle: 'Job 3',
+        //         id: 2
+        //       },
+        //       {
+        //         jobTitle: 'Job 5',
+        //         id: 4
+        //       }
+        //     ],
+        //     preference: 1,
+        //     justification: "Porque azul é a cor da inovação e tecnologia"
+        //   },
+        // ],
         // JSON para enviar à API da plataforma de Gestão de Licenças
-        report: {
-            groups: [{
-                id: '',
-                groupTitle: "",
-                selectedJobs: []
-            }],
-            favorites: {
-                selectedGroups: [],
-                justification: ''
-            },
-            expeled: {
-                selectedGroup: Number,
-                justification: ''
-            }
-        },
-        maxGroupID: 2
+        // ---- report[] example ----
+        // report: {
+        //   groups: [
+        //     {
+        //       id: 0,
+        //       groupTitle: "Red",
+        //       selectedJobs: [{
+        //           jobTitle: 'Job 1',
+        //           id: 0
+        //         },
+        //         {
+        //           jobTitle: 'Job 2',
+        //           id: 1
+        //         }
+        //       ],
+        //       preference: -1,
+        //       justification: "Porque é vermelho é violento"
+        //     }
+        //   ],
+        //   favorites: [
+        //     {
+        //       id: 1,
+        //       groupTitle: "Green",
+        //       selectedJobs: [{
+        //         jobTitle: 'Job 4',
+        //         id: 3
+        //       }],
+        //       preference: 0,
+        //       justification: ""
+        //     }
+        //   ],
+        //   expeled: {
+        //     id: 3,
+        //     groupTitle: "Blue",
+        //     selectedJobs: [
+        //       {
+        //         jobTitle: 'Job 3',
+        //         id: 2
+        //       },
+        //       {
+        //         jobTitle: 'Job 5',
+        //         id: 4
+        //       }
+        //     ],
+        //     preference: -1,
+        //     justification: "Porque azul é a cor da inovação e tecnologia"
+        //   }
+        // },
+        maxGroupID: 1,
+        report: {}
     },
     mutations: {
-      selectJob(state, jobID) {
-          state.jobs[jobID].isSelected = true;
+      inviteJob(state, payload) {
+        if (state.invitedJobs.every( j => j.id !== payload.id)) {
+          state.invitedJobs.push(payload);
+        }
       },
-      unselectJob(state, jobID) {
-          state.jobs[jobID].isSelected = false;
+      uninviteJob(state, jobID) {
+        state.invitedJobs = state.invitedJobs.filter( l => l.id != jobID);
       },
       updateInvitedJobs(state, array) {
         state.invitedJobs = array;
@@ -110,9 +164,12 @@ export default createStore({
       addGroup(state) {
         try {
             var newGroup = {
-                id: ++state.maxGroupID,
+                id: state.maxGroupID++,
+                // groupTitle: 'group ' + state.maxGroupID++,
                 groupTitle: "",
-                selectedJobs: []
+                selectedJobs: [],
+                preference: 0,
+                justification: ""
             }
             state.groups.push(newGroup);
         } catch(e) {console.log(e);}
@@ -122,64 +179,58 @@ export default createStore({
           state.groups = state.groups.filter(e => e !== groupID);
         } catch(e) {console.log(e);}
       },
-      addJobToGroup(state, payload) {
-        var jobList = state.groups[payload.groupID].selectedJobs;
-        state.jobs[payload.jobID].isSelected = false;
-        jobList.push(payload.jobID);
-      },
-      removeJobFromGroup(state, payload) {
-        state.jobs[payload.jobID].isSelected = true;
-        state.groups[payload.groupID].selectedJobs = state.groups[payload.groupID].selectedJobs.filter(e => e !== payload.jobID);
+      nameGroup(state, payload) {
+        state.groups[payload.groupID].groupTitle = payload.groupTitle;
       },
       updateGroups (state, payload) {
-        state.groups = payload.groups;
+        state.groups = payload;
       },
-      selectFavorite(state, groupID) {
-        state.favorites.selectedGroups.push(payload.groupID);
+      favoriteGroup (state, groupID) {
+        state.groups.find(g => g.id === groupID).preference = 1;
       },
-      unselectFavotire(state, groupID) {
-        state.favorites.selectedGroups.filter(e => e !== payload.groupID);
+      dislikeGroup (state, groupID) {
+        state.groups.find(g => g.id === groupID).preference = -1;
       },
-      selectExpeled(state, groupID) {
-        state.expeled.selectedGroup = groupID;
+      // I mean, a neutral preference is just... 'meh'
+      mehGroup (state, groupID) {
+        state.groups.find(g => g.id === groupID).preference = 0;
       },
-      addFavoriteJustification(state, payload) {
-        state.favorites.selectedGroups[payload.groupID].justification = payload.text;
+      updateReport (state, payload) {
+        state.report = payload;
       }
     },
     actions: {
-      updateInvitedJobs({commit}, jobs) {
-        commit('updateInvitedJobs', jobs);
-      },
-      updateGroups({commit, state}, groups) {
-        console.log("wtf?");
-        try {
-          if(payload.groups.selectedJobs.length < 1) {
-            throw "Cada Grupinho deve possuir ao menos uma profissão.";
-          }
-          else {
-            commit('updateGroups', groups);
-          }
-        } 
-        catch(e) {
-          console.log(e);
+      buildReport({commit, getters}) {
+        let reportMehs = getters.getMehGroups;
+        let reportFavorites = getters.getFavoritedGroups;
+        let reportDisliked = getters.getDislikedGroup;
+        let report = {
+          groups: reportMehs,
+          favorites: reportFavorites,
+          expeled: reportDisliked
         }
+        commit('updateReport', report);
       }
     },
     getters: {
+        getState: state => {
+          return state;
+        },
+        getParticipantName: state => {
+          return state.participant.name;
+        },
+        getAllJobs: state => {
+          return state.jobs;
+        },
         // Property-style getters (cached)
         getInvited: state => {
             return state.jobs.filter(j => j.isSelected == true);
         },
         getInvitedList: state => {
-          var temp = state.jobs.filter(j => j.isSelected == true);
-          return temp;
+          return state.invitedJobs;
         },
         getJobsInGroup: state => groupIndex => {
-          console.log("wasgoinon?");
-          console.log(state.groups[groupIndex]);
           var temp = state.jobs.filter(j => state.groups[groupIndex].selectedJobs.includes(j.id));
-          console.log(temp)
           return temp;
         },
         getJobsInGroupList: state => {
@@ -212,12 +263,23 @@ export default createStore({
         getGroupJobList: state => groupID => {
             return state.groups[groupID].selectedJobs;
         },
-        getGroupJobTitleList: (state, getters) => groupID => {
-            var jobTitleList = [];
-            for (jobID in getters.getGroupJobList(groupID)) {
-                jobTitleList.push(state.jobs[jobID].jobTitle);
-            }
-            return jobTitleList;
+        getFavoritesLength: state => {
+          return state.groups.filter(g => g.preference === 1).length;
+        },
+        getDislikedLength: state => {
+          return state.groups.filter(g => g.preference === -1).length;
+        },
+        getNotFavoritedGroups: state => {
+          return state.groups.filter(g => g.preference !== 1);
+        },
+        getFavoritedGroups: state => {
+          return state.groups.filter(g => g.preference === 1);
+        },
+        getDislikedGroup: state => {
+          return state.groups.find(g => g.preference === -1);
+        },
+        getMehGroups: state => {
+          return state.groups.filter(g => g.preference === 0);
         }
     },
     modules: {

@@ -1,19 +1,28 @@
 <template lang="html">
     <div class="profession-item__card">
         <h4>{{jobTitle}}</h4>
-        <p>jobIndex: {{jobID}}</p>
         <p>{{jobDescription}}</p>
-        <button v-on:click="$store.commit('selectJob', jobID)">Convidar</button>
+        <button v-on:click="$store.commit('inviteJob', job)">Convidar</button>
+
     </div>
 </template>
 <script>
+
 export default {
-    name: "ProfessionCard",
+    name: "professionCard",
+    data: function() {
+        return {
+            job: {
+                id: this.jobID,
+                jobTitle: this.jobTitle
+            }
+        }
+    },
     props: {
         jobID: Number,
         jobTitle: String,
         jobDescription: String
-    },
+    }
 }
 </script>
 <style lang="css">

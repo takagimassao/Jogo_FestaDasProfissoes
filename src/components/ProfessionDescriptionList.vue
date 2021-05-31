@@ -1,10 +1,10 @@
 <template v-slot:sectionBody lang="html">
-    <div class="row">
+    <div class="row description-list">
         <div 
-            v-for="job in $store.state.jobs" :key="$store.state.jobs.id" 
+            v-for="job, index in $store.state.jobs" :key="index" 
             class="col-4"
         >
-            <professionItem 
+            <professionItem
             :jobID="job.id"
             :jobTitle="job.jobTitle" 
             :jobDescription="job.jobDescription"
@@ -24,5 +24,4 @@ export default {
 }
 </script>
 <style lang="css">
-    
 </style>

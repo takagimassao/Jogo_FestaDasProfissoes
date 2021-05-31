@@ -1,19 +1,18 @@
 <template lang="html">
   <taskWording>
     <template v-slot:header>
-      Rodas de Conversa
+      <h1>Grupinhos</h1>
     </template>
     <template v-slot:wording>
       <p>A festa começou e as profissões começaram a curtir. Você nota que as profissões que possuem algo em comum começaram a se agrupar em rodas de conversa. Como são esses grupos?</p>
       <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
     </template>
     <template v-slot:router-btn>
-      <button @click="updateStore">push to store</button>
-      <!-- <router-link 
+      <router-link 
           type="submit"
           to="/NomearGrupos">
           Avançar
-      </router-link> -->
+      </router-link>
     </template>
   </taskWording>
 
@@ -32,16 +31,7 @@
               itemKey="jobTitle"
             >
               <template #item="{ element, index }">
-                <professionCard>
-                  <template v-slot:title>
-                    {{element.jobTitle}} ID: {{element.id}}
-                  </template>
-                  <template v-slot:button>
-                    <button @click="pickJob(element.id)">
-                        ->>
-                    </button>
-                  </template>
-                </professionCard>
+                <professionCard :jobTitle="element.jobTitle" />
               </template>
             </draggable>
           </div>
@@ -52,7 +42,7 @@
     <div class="col-9">
       <button @click="addGroup()">Criar novo grupo</button>
       <div class="group-list"
-        v-for="group, groupIndex in groupList" :key="groupIndex"
+        v-for="group, groupIndex in getGroups" :key="groupIndex"
       >
         <sectionRight>
           <template v-slot:header>
@@ -63,19 +53,6 @@
           </template>
           <template v-slot:sectionBody>
             <div class="wrapper">
-              <!-- <div
-                v-for="job in group.selectedJobs" :key="job"
-              >
-                <div class="section-content__profession-card">
-                  <span>{{$store.state.jobs[job].jobTitle}}</span>
-                  <button @click="$store.commit('removeJobFromGroup', {
-                    jobID: job,
-                    groupID: groupIndex})"
-                  >
-                    X
-                  </button>
-                </div> !-- END: .section-content__profession-card  --
-              </div> !-- END: v-for job  -- -->
 
             <draggable
               :list="group.selectedJobs"
@@ -83,16 +60,7 @@
               itemKey="jobTitle"
             >
               <template #item="{ element, index }">
-                <professionCard>
-                  <template v-slot:title>
-                    <span> {{element.jobTitle}} ID: {{element.id}} </span>
-                  </template>
-                  <template v-slot:button>
-                    <button @click="pickJob(element.id)">
-                        ->>
-                    </button>
-                  </template>
-                </professionCard>
+                <professionCard :jobTitle="element.jobTitle" />
               </template>
             </draggable>
 
@@ -103,27 +71,6 @@
     </div> <!-- END: .col-9 -->
   </div> <!-- END: .row  -->
 
-  <div class="modal" id="modal-1" v-if="isModalVisible == true">
-    <div class="modal__mask">
-      <div class="modal__card">
-        <div class="modal-card__header">
-          <h3>Escolher grupo</h3>
-        </div> 
-        <div class="modal-card__body">
-          <span class="modal-card-body__msg">
-              Em qual grupo você deseja inserir a profissão 
-              escolhida (ID: {{focusedJobID}} -> Title: {{focusedJobTitle}})?
-          </span>
-          <div v-for="group in groups">
-            <button @click="addJobInGroup(focusedJobID, group.id)">{{group.groupTitle}}</button>
-          </div>
-        </div>
-        <div class="modal-card__footer">
-
-        </div > <!-- END: .modal-card__footer  -->
-      </div> <!-- END: .modal__card  -->
-    </div> <!-- END: .modal__mask  -->
-  </div> <!-- END: .modal  -->
 
 </template>
 
@@ -134,7 +81,7 @@ import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionCard from '@/components/ProfessionCard.vue'
 import draggable from 'vuedraggable'
-import {mapState, mapGetters, mapActions} from "vuex";
+import {mapGetters, mapMutations} from "vuex"
 
 export default {
   name: 'rodasDeConversa',
@@ -143,7 +90,7 @@ export default {
     sectionLeft,
     sectionRight,
     professionCard,
-    draggable
+    draggable,
   },
   data: function() {
     return {
@@ -151,97 +98,58 @@ export default {
       isModalVisible: false,
       focusedJobID: 0,
       groupList: [],
-      invitedList: [
-        {
-            id: 2,
-            jobTitle: "Job 3",
-            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-            isSelected: false
-        },
-        {
-            id: 0,
-            jobTitle: "Job 1",
-            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-            isSelected: true
-        },
-        {
-            //jobs[4]
-            id: 4,
-            jobTitle: "Job 5",
-            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-            isSelected: true
-        },
-        {
-            id: 3,
-            jobTitle: "Job 4",
-            jobDescription: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.",
-            isSelected: true
-        }
-      ],
       maxGroupId: 0
     }
   },
   computed: {
-    // invitedList: {
-    //   get() {
-    //     return this.getInvitedList;
-    //   },
-    //   set(jobsList) {
-    //     this.updateInvitedJobs(jobsList);
-    //   }
-    // },
-    focusedJobTitle() {
-      return this.jobs[this.focusedJobID].jobTitle;
-    },
     //VueX Storage getters
     ...mapGetters([
       'getInvitedList',
+      'getGroups',
+      'getState'
     ]),
-    ...mapState([
-      'jobs',
-      'groups'
-       ])
-  }, 
+    invitedList() {
+      return this.getInvitedList;
+    }
+  },
   methods: {
-    ...mapActions ([
+    ...mapMutations([
+      'addGroup',
+      'inviteJob',
       'updateGroups'
     ]),
-    printMsg: function(jobID) {
-      return console.log("some shit has happened with job.id" + jobID);
-    },
-    pickJob(jobID) {
-      this.focusedJobID = jobID;
-      this.showModal();
-    },
-    addJobInGroup(jobID, groupID) {
-      return this.$store.commit('addJobToGroup',{
-        jobID: jobID,
-        groupID: groupID
-      })
-    },
-    addGroup() {
-      return this.groupList.push({
-        id: this.maxGroupId,
-        //placeholder - remember to remove before production
-        groupTitle: 'group ' + this.maxGroupId++,
-        selectedJobs: []
-      })
-    },
     delGroup(groupID) {
-      console.log(this.groupList);
-      this.groupList = this.groupList.filter(g => g.id !== groupID);
-      return 
+      let group = this.getGroups.find(g => g.id === groupID)
+      if (group.selectedJobs.length > 0) {
+        group.selectedJobs.forEach(job => this.inviteJob(job));
+      }
+      let payload = this.getGroups.filter(g => g.id !== groupID);
+      this.updateGroups(payload);
     },
-    //modal
-    showModal() {
-      this.isModalVisible = true;
+    validateGroups() {
+      if(this.getGroups < 1) {
+        window.alert("Para avançar, crie ao menos 2 Grupinhos. Cada Grupinho deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupinho.")
+        return false;
+      } 
+      else if (this.getGroups.some(g => g.selectedJobs.length < 1)) {
+        window.alert("Cada Grupinho deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupinho.")
+        return false;
+      }
+      else if (this.getInvitedList.length > 0) {
+        window.alert("Todas as Profissões convidadas devem estar em algum Grupinho.")
+        return false;
+      }
+      else {
+        return true;
+      }
     },
-    //Vue Route
-    beforeRouteLeave: function(to, from, next) {
-      // window.alert("to saindo, vlw, flw!");
+  }, // END methods
+  //Vue Route
+  beforeRouteLeave: function(to, from, next) {
+    if (this.validateGroups()) {
       next();
     }
-  } // END methods
+  }
 }  // END export
 </script>
 

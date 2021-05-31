@@ -13,7 +13,7 @@
     <template v-slot:router-btn>
       <router-link 
           type="submit"
-          to="/Expulso">
+          to="/JustificativaFavoritos">
           Avançar
       </router-link>
     </template>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col-12">
       <div class="group-list"
-        v-for="group, groupIndex in getGroups" :key="groupIndex"
+        v-for="group, groupIndex in getNotFavoritedGroups" :key="groupIndex"
       >
         <sectionLeft>
           <template v-slot:header>
@@ -31,10 +31,10 @@
                   <h3>{{group.groupTitle}}</h3>
                 </div>
                 <div class="col" v-show="group.preference === 0">
-                    <button @click="favorite(group.id)">Favoritar</button>
+                    <button @click="dislike(group.id)">Retirar</button>
                 </div>
-                <div class="col" v-show="group.preference === 1">
-                    <button @click="mehGroup(group.id)">Desfavoritar</button>
+                <div class="col" v-show="group.preference === -1">
+                    <button @click="mehGroup(group.id)">Desfazer</button>
                 </div>
               </div>
           </template>
@@ -61,7 +61,7 @@ import professionCard from '@/components/ProfessionCard.vue'
 import {mapGetters, mapMutations} from "vuex"
 
 export default {
-  name: 'favoritos',
+  name: 'expulsos',
   components: {
     taskWording,
     sectionLeft,
@@ -70,31 +70,28 @@ export default {
   computed: {
     //VueX Storage getters
     ...mapGetters([
-      'getGroups',
-      'getState',
-      'getFavoritesLength'
+      'getDislikeGroups',
+      'getNotFavoritedGroups',
+      'getDislikedLength',
+      'getState'
     ])
   },
   methods: {
     ...mapMutations([
-      'favoriteGroup',
+      'dislikeGroup',
       'mehGroup'
     ]),
-    favorite(groupID) {
-        if(this.getFavoritesLength < 2) {
-            this.favoriteGroup(groupID);
+    dislike(groupID) {
+        if(this.getDislikedLength < 1) {
+            this.dislikeGroup(groupID);
         }
         else {
-            window.alert("Você só pode favoritar no máxmo 2 Grupinhos.")
+            window.alert("Você só pode retirar no máxmo 1 Grupinho")
         }
     },
-    validateFavorites() {
-      if(this.getFavoritesLength < 1) {
-        window.alert("Deve haver ao menos 1 Grupinho favoritado")
-        return false
-      }
-      else if(this.getFavoritesLength > 2) {
-        window.alert("Você só pode favoritar no máxmo 2 Grupinhos.")
+    validateDislikeds() {
+      if(this.getDislikedLength < 1) {
+        window.alert("Você deve retirar exatamente 1 Grupinho")
         return false
       }
       else {
@@ -104,7 +101,7 @@ export default {
   }, // END methods
   //Vue Route
   beforeRouteLeave: function(to, from, next) {
-    if (this.validateFavorites()) {
+    if (this.validateDislikeds()) {
       next();
     }
   }

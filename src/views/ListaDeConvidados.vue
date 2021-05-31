@@ -1,7 +1,7 @@
 <template lang="html">
   <taskWording>
     <template v-slot:header>
-      <h1>Lista de convidados</h1>
+      <h1>Bora preparar a lista dos convidados?</h1>
     </template>
     <template v-slot:wording>
       <p>Você irá dar uma festa e cada profissão representa um convidado. Decida quais profissões você convidaria para a festa e quais você não vai convidar.</p>
@@ -31,13 +31,10 @@
         </template>
         <template v-slot:sectionBody>
           <div
-            v-for="job in areInvited" :key="$store.state.jobs.id" >
-            <professionCard>
-              <template v-slot:title>
-                {{job.jobTitle}}
-              </template>
+            v-for="job, index in getInvitedList" :key="index" >
+            <professionCard :jobTitle="job.jobTitle">
               <template v-slot:button>
-                <button v-on:click="$store.commit('unselectJob', job.id)">X</button>
+                <button v-on:click="uninviteJob(job.id)">X</button>
               </template>
             </professionCard>
           </div> <!-- END: v-for -->
@@ -46,6 +43,8 @@
     </div> <!-- END: col-3 -->
     
   </div> <!-- END: row -->
+
+
 </template>
 
 <script>
@@ -55,6 +54,7 @@ import sectionLeft from '@/components/SectionLeft.vue'
 import sectionRight from '@/components/SectionRight.vue'
 import professionDescriptionList from '@/components/ProfessionDescriptionList.vue'
 import professionCard from '@/components/ProfessionCard.vue'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'listaDeConvidados',
@@ -63,21 +63,36 @@ export default {
     sectionLeft,
     sectionRight,
     professionDescriptionList,
-    professionCard
+    professionCard,
   },
   computed: {
-    areInvited: function() {
-      var jobList = this.$store.state.jobs;
-      var tempList = jobList.filter( j => j.isSelected == true);
-      return tempList;
+    ...mapGetters([
+      'getInvitedList',
+      'getState'
+    ]),
+    
+  },
+  methods: {
+    ...mapMutations([
+      'uninviteJob'
+    ]),
+    validadeInvitedList() {
+      if(this.getInvitedList.length < 2) {
+        window.alert("Adicione ao menos 2 Profissões na lista de Convidados para avançar na ativade.");
+        // fail validation
+        return false;
+      }
+      else {
+        // passed validation
+        return true;
+      }
     }
   },
-  
+  //VueRouter Navigation Guard
   beforeRouteLeave: function(to, from, next) {
-    this.$store.state.invitedJobs.push(this.areInvited);
-    console.log(this.$store.state.invitedJobs)
-    console.log("falei que ia vazer, djows")
-    next();
+    if(this.validadeInvitedList()) {
+      next();
+    }
   }
 }
 </script>

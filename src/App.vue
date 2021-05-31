@@ -10,7 +10,9 @@
       font-family: 'Poppins';
       src: local('Poppins'), url('./assets/fonts/Poppins-Regular.ttf')  format('truetype'),
 }
-
+* {
+  box-sizing: border-box;
+}
 html {
   font-family: "Poppins", sans-serif;
 }

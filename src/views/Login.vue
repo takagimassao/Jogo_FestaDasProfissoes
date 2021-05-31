@@ -1,70 +1,47 @@
 <template lang="html">
-  <div class="container">
-    <inviteHeader/>
-    <div class="row">
-      <div class="col-3">
-        <div class="section--right section--small">
-          <div class="section__content--invited">
-            <h2>Convidados</h2>
-            <div
-              v-for="job in areInvited" :key="$store.state.jobs.id" >
-              <professionCard 
-                :profession-title="job.jobTitle"
-                :professionID="job.id" />
+<div class="container-fluid">
+    <basicHeader>
+        <template v-slot:header>
+        <h1>Fes ta das profissões</h1>
+        </template>
+    </basicHeader>
+    <div class="centered">
+        <div class="row">
+            <div class="col-5">
+                <label for="Name">Nome completo</label>
+                <input type="text" name="name" id="participantname" placeholder="Name" />
             </div>
-          </div>
         </div>
-      </div>
-      <div class="col-9">
-        <div class="section--left section--big">
-          <div class="section__content">
-            <h2>Profissões</h2>
-            <professionDescriptionList />
-          </div>
-        </div> 
-      </div>
+        <div class="row">
+            <div class="col-5">
+                <label for="accesscode">Código de acesso</label>
+                <input type="text" name="accesscode" id="participantaccesscode" placeholder="Accesscode">
+            </div>
+        </div>
     </div>
-  </div>
+    <!-- for debugging -->
+    <div class="row">
+        <div class="col">
+            <router-link 
+                type="submit"
+                to="/Introducao">
+                Avançar
+            </router-link>
+        </div>
+    </div>
+</div>
+
 </template>
 
 <script>
 // @ is an alias to /src
-import inviteHeader from '@/components/InviteHeader.vue'
-import professionDescriptionList from '@/components/ProfessionDescriptionList.vue'
-import professionCard from '@/components/professionCard.vue'
+import basicHeader from '@/components/BasicHeader.vue'
+import {mapGetters, mapActions} from "vuex"
 
 export default {
-  name: 'rodasDeConversa',
+  name: 'obrigado',
   components: {
-    inviteHeader,
-    professionDescriptionList,
-    professionCard
-  },
-  data: function() {
-    return {
-      thisProfessionTitle: "Parent Title"
-    }
-  },
-  computed: {
-    areInvited: function() {
-      var jobList = this.$store.state.jobs;
-      var tempList = jobList.filter( j => j.jobState == 1);
-      return tempList;
-    }
+    basicHeader,
   }
 }
 </script>
-
-<style lang="css">
-  .section__content .profession-item__card {
-    margin-bottom: 1.25rem;
-  }
-
-  .section__content--invited {
-    display: flex;
-    flex-direction: column;
-  }
-  .section__content--invited .section-content__profession-card {
-    margin-bottom: 1.25rem;
-  }
-</style>

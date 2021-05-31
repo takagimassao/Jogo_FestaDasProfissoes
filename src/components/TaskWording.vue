@@ -8,16 +8,13 @@
                     <h1>Enunciado da tarefa</h1>
                 </slot>
                 
-                <!-- must add at least one paragraph inside header slot -->
-                <slot name="wording">
-                    <p>
-                        Algo deu errado e não pudemos carregar as instruções dessa atividade. Mostre essa tela para o profissional responsável pela aplicação dessa tarefa e peça para ele entrar em contato com o Suporte. Obrigado pela colaboração.
-                    </p>
-                </slot>
+                <!-- can add paragraphs inside wording slot -->
+                <slot name="wording"></slot>
             </div>
         </div>
         <div class="col-3">
             <div class="header__next-section">
+                <!-- add an appropriated router-link component -->
                 <slot name="router-btn"></slot>
             </div>
         </div>
