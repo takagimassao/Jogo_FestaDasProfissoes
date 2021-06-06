@@ -1,8 +1,8 @@
 <template>
-    <div class="header">
+    <div class="basic-header">
         <div class="row align-items-stretch">
             <div class="col-12">
-                <div class="header__content">
+                <div class="basic-header__content">
                     <!-- must add a h1 inside header slot -->
                     <slot name="header">
                         <h1>Enunciado da tarefa</h1>
@@ -23,25 +23,13 @@ export default {
 }
 </script>
 
-<style lang="css">
-    .header {
-        background-color: #f2f2f2;
-        padding: 1.8rem 3rem;
-    }
-    
-    .header__instruction {
-        text-align: left;
-    }
-
-    .header__next-section {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        background: red;
-    }
-
-    .header__next-btn {
-        margin-bottom: 2.5rem;
+<style lang="css" scoped>
+    .basic-header {
+        background-color: var(--primary-color);
+        border-radius: 0 0 0 56px;
+        text-align: center;
+        color: white;
+        margin-bottom: 3.125rem;
+        padding: 3rem 6rem;
     }
 </style>

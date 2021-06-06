@@ -1,55 +1,57 @@
 <template lang="html">
-  <taskWording>
-    <template v-slot:header>
-      <h1>Meus grupos favoritos</h1>
-    </template>
-    <template v-slot:wording>
-        <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
-        <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
-        <p>Após justificar, clique em "Avançar".</p>
-    </template>
-    <template v-slot:router-btn>
-      <router-link 
-          type="submit"
-          to="/JustificativaExpulso">
-          Avançar
-      </router-link>
-    </template>
-  </taskWording>
-    <div class="group-list"
-        v-for="group, groupIndex in getFavoritedGroups" :key="groupIndex"
-    >
-        <div class="row">
-            <div class="col-8">
-                <sectionLeft>
-                    <template v-slot:header>
-                        <h3>{{group.groupTitle}}</h3>
-                    </template>
-                    <template v-slot:sectionBody>
-                        <div class="wrapper">
-                            <div v-for="job in group.selectedJobs" :key="job">
-                                <professionCard :jobTitle="job.jobTitle" />
-                            </div>
-                        </div>
-                    </template>
-                </sectionLeft>
-            </div>
-            <div class="col-4">
-                <sectionRight>
-                    <template v-slot:header>
-                        <span> Justificativa </span>
-                    </template>
-                    <template v-slot:sectionBody>
-                        <input
-                            type="textarea"
-                            v-model="group.justification"
-                            placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
-                        >
-                    </template>
-                </sectionRight>
-            </div>
-        </div>
-    </div> <!-- END: .group-list v-for group  -->
+  <div class="container-fluid">
+    <taskWording>
+      <template v-slot:header>
+        <h1>Meus grupos favoritos</h1>
+      </template>
+      <template v-slot:wording>
+          <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
+          <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
+          <p>Após justificar, clique em "Avançar".</p>
+      </template>
+      <template v-slot:router-btn>
+        <router-link  class="btn--primary"
+            type="submit"
+            to="/JustificativaExpulso">
+            Avançar
+        </router-link>
+      </template>
+    </taskWording>
+      <div class="group-list"
+          v-for="group, groupIndex in getFavoritedGroups" :key="groupIndex"
+      >
+          <div class="row">
+              <div class="col-8">
+                  <sectionLeft>
+                      <template v-slot:header>
+                          <h3>{{group.groupTitle}}</h3>
+                      </template>
+                      <template v-slot:sectionBody>
+                          <div class="wrapper">
+                              <div v-for="job in group.selectedJobs" :key="job">
+                                  <professionCard :jobTitle="job.jobTitle" />
+                              </div>
+                          </div>
+                      </template>
+                  </sectionLeft>
+              </div>
+              <div class="col-4">
+                  <sectionRight>
+                      <template v-slot:header>
+                          <span> Justificativa </span>
+                      </template>
+                      <template v-slot:sectionBody>
+                          <input
+                              type="textarea"
+                              v-model="group.justification"
+                              placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
+                          >
+                      </template>
+                  </sectionRight>
+              </div>
+          </div>
+      </div> <!-- END: .group-list v-for group  -->
+  </div>
 
 
 

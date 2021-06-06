@@ -1,75 +1,72 @@
 <template lang="html">
-  <taskWording>
-    <template v-slot:header>
-      <h1>Grupinhos</h1>
-    </template>
-    <template v-slot:wording>
-      <p>A festa começou e as profissões começaram a curtir. Você nota que as profissões que possuem algo em comum começaram a se agrupar em rodas de conversa. Como são esses grupos?</p>
-      <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
-    </template>
-    <template v-slot:router-btn>
-      <router-link 
-          type="submit"
-          to="/NomearGrupos">
-          Avançar
-      </router-link>
-    </template>
-  </taskWording>
-
-  <div class="row">
-
-    <div class="col-3">
-      <sectionLeft>
-        <template v-slot:header>
-          <h2>Convidados</h2>
-        </template>
-        <template v-slot:sectionBody>
-          <div class="wrapper">
-            <draggable
-              :list="invitedList"
-              group="cars"
-              itemKey="jobTitle"
-            >
-              <template #item="{ element, index }">
-                <professionCard :jobTitle="element.jobTitle" />
-              </template>
-            </draggable>
-          </div>
-        </template> <!-- END: v-slot sectionBody -->
-      </sectionLeft>
-    </div> <!-- END: col-3 -->
-
-    <div class="col-9">
-      <button @click="addGroup()">Criar novo grupo</button>
-      <div class="group-list"
-        v-for="group, groupIndex in getGroups" :key="groupIndex"
-      >
-        <sectionRight>
+  <div class="container-fluid">
+    <taskWording>
+      <template v-slot:header>
+        <h1>Grupinhos</h1>
+      </template>
+      <template v-slot:wording>
+        <p>A festa começou e as profissões começaram a curtir. Você nota que as profissões que possuem algo em comum começaram a se agrupar em rodas de conversa. Como são esses grupos?</p>
+        <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
+      </template>
+      <template v-slot:router-btn>
+        <router-link  class="btn--primary"
+            type="submit"
+            to="/NomearGrupos">
+            Avançar
+        </router-link>
+      </template>
+    </taskWording>
+    <div class="row">
+      <div class="col-3">
+        <sectionLeft>
           <template v-slot:header>
-              <div class="wrapper row">
-                <h3 class="col-11">{{group.groupTitle}}</h3>
-                <button @click="delGroup(group.id)" class="col-1">X</button>
-              </div>
+            <h2>Convidados</h2>
           </template>
           <template v-slot:sectionBody>
             <div class="wrapper">
-
-            <draggable
-              :list="group.selectedJobs"
-              group="cars"
-              itemKey="jobTitle"
-            >
-              <template #item="{ element, index }">
-                <professionCard :jobTitle="element.jobTitle" />
-              </template>
-            </draggable>
-
+              <draggable
+                :list="invitedList"
+                group="cars"
+                itemKey="jobTitle"
+              >
+                <template #item="{ element, index }">
+                  <professionCard :jobTitle="element.jobTitle" />
+                </template>
+              </draggable>
             </div>
-          </template>
-        </sectionRight>
-      </div> <!-- END: v-for group  -->
-    </div> <!-- END: .col-9 -->
-  </div> <!-- END: .row  -->
+          </template> <!-- END: v-slot sectionBody -->
+        </sectionLeft>
+      </div> <!-- END: col-3 -->
+      <div class="col-9">
+        <button @click="addGroup()">Criar novo grupo</button>
+        <div class="group-list"
+          v-for="group, groupIndex in getGroups" :key="groupIndex"
+        >
+          <sectionRight>
+            <template v-slot:header>
+                <div class="wrapper row">
+                  <h3 class="col-11">{{group.groupTitle}}</h3>
+                  <button @click="delGroup(group.id)" class="col-1">X</button>
+                </div>
+            </template>
+            <template v-slot:sectionBody>
+              <div class="wrapper">
+              <draggable
+                :list="group.selectedJobs"
+                group="cars"
+                itemKey="jobTitle"
+              >
+                <template #item="{ element, index }">
+                  <professionCard :jobTitle="element.jobTitle" />
+                </template>
+              </draggable>
+              </div>
+            </template>
+          </sectionRight>
+        </div> <!-- END: v-for group  -->
+      </div> <!-- END: .col-9 -->
+    </div> <!-- END: .row  -->
+  </div>
 
 
 </template>

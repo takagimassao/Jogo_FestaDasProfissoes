@@ -9,7 +9,7 @@
         <p>Após justificar, clique em "Avançar".</p>
     </template>
     <template v-slot:router-btn>
-      <router-link 
+      <router-link  class="btn--primary"
           type="submit"
           to="/Obrigado">
           Avançar

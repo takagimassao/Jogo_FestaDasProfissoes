@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="section--right">
-        <div class="content-section__header">
+        <div class="section__header">
             <slot name="header"></slot>
         </div>
         <div class="section__body">

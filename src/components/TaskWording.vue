@@ -28,10 +28,15 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .header {
-        background-color: #f2f2f2;
-        padding: 1.8rem 3rem;
+        background-color: white;
+        padding-left: 3rem;
+        border-radius: 0 0 0 56px;
+        text-align: center;
+        color: var(--dark-color);
+        margin-bottom: 3.125rem;
+        padding: 3rem 6rem;
     }
     
     .header__instruction {
@@ -43,10 +48,6 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        background: red;
-    }
-
-    .header__next-btn {
-        margin-bottom: 2.5rem;
+        background-image: url();
     }
 </style>

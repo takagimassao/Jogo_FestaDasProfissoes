@@ -29,10 +29,11 @@ export default {
     .profession-item__card {
         text-align: left;
         background-color: white;
-        box-shadow: 0.5rem 0.5rem 1rem #9f9f9f;
+        box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, .16);
         padding: 0.75rem 1.5rem 2rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1.3em;
+        border-radius: 32px 0 32px 0;
+        margin-bottom: 1.3rem;
+        height: 100%;
     }
     .profession-item__card button {
         display: block;

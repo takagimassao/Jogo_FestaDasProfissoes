@@ -1,49 +1,52 @@
 <template lang="html">
-  <taskWording>
-    <template v-slot:header>
-      <h1>Bora preparar a lista dos convidados?</h1>
-    </template>
-    <template v-slot:wording>
-      <p>Você irá dar uma festa e cada profissão representa um convidado. Decida quais profissões você convidaria para a festa e quais você não vai convidar.</p>
-      <p>Quando estiver satisfeito, avance para a próxima etapa.</p>
-    </template>
-    <template v-slot:router-btn>
-      <router-link 
-          type="submit"
-          to="/RodasDeConversa">
-          Avançar
-      </router-link>
-    </template>
-  </taskWording>
-  <div class="row">
-    <div class="col-9">
-      <sectionLeft>
-        <template v-slot:sectionBody>
-          <professionDescriptionList />
-        </template>
-      </sectionLeft>
-    </div> <!-- END: col-9 -->
-
-    <div class="col-3">
-      <sectionRight>
-        <template v-slot:header>
-          <h2>Convidados</h2>
-        </template>
-        <template v-slot:sectionBody>
-          <div
-            v-for="job, index in getInvitedList" :key="index" >
-            <professionCard :jobTitle="job.jobTitle">
-              <template v-slot:button>
-                <button v-on:click="uninviteJob(job.id)">X</button>
-              </template>
-            </professionCard>
-          </div> <!-- END: v-for -->
-        </template> <!-- END: v-slot sectionBody -->
-      </sectionRight>
-    </div> <!-- END: col-3 -->
+  <div class="container-fluid">
+    <taskWording>
+      <template v-slot:header>
+        <h1>Bora preparar a lista dos convidados?</h1>
+      </template>
+      <template v-slot:wording>
+        <p>Você irá dar uma festa e cada profissão representa um convidado. Decida quais profissões você convidaria para a festa e quais você não vai convidar.</p>
+        <p>Quando estiver satisfeito, avance para a próxima etapa.</p>
+      </template>
+      <template v-slot:router-btn>
+        <router-link  class="btn--primary"
+            type="submit"
+            to="/RodasDeConversa">
+            Avançar
+        </router-link>
+      </template>
+    </taskWording>
+    <div class="row">
+      <div class="col-9">
+        <sectionLeft>
+          <template v-slot:header>
+            <h2>Possíveis convidados</h2>
+          </template>
+          <template v-slot:sectionBody>
+            <professionDescriptionList />
+          </template>
+        </sectionLeft>
+      </div> <!-- END: col-9 -->
+      <div class="col-3">
+        <sectionRight>
+          <template v-slot:header>
+            <h2>Convidados</h2>
+          </template>
+          <template v-slot:sectionBody>
+            <div
+              v-for="job, index in getInvitedList" :key="index" >
+              <professionCard :jobTitle="job.jobTitle">
+                <template v-slot:button>
+                  <button v-on:click="uninviteJob(job.id)">X</button>
+                </template>
+              </professionCard>
+            </div> <!-- END: v-for -->
+          </template> <!-- END: v-slot sectionBody -->
+        </sectionRight>
+      </div> <!-- END: col-3 -->
     
-  </div> <!-- END: row -->
-
+    </div> <!-- END: row -->
+  </div>
 
 </template>
 

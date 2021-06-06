@@ -1,31 +1,33 @@
 <template lang="html">
-    <taskWording>
-        <template v-slot:header>
-        <h1>Festa do {{getParticipantName}}</h1>
-        </template>
-    </taskWording>
-    <div class="group-list"
-        v-for="group, groupIndex in getGroups" :key="groupIndex"
-    >
-        <div class="row">
-            <div class="col-12">
-                <sectionLeft>
-                    <template v-slot:header>
-                        <h3>{{group.groupTitle}}</h3>
-                        <span v-if="group.preference === 1">FAVORITO</span>
-                        <span v-if="group.preference === -1">MENOS GOSTA</span>
-                    </template>
-                    <template v-slot:sectionBody>
-                        <div class="wrapper">
-                            <div v-for="job in group.selectedJobs" :key="job">
-                              <professionCard :jobTitle="job.jobTitle" />
-                            </div>
-                        </div>
-                    </template>
-                </sectionLeft>
-            </div>
-        </div>
-    </div> <!-- END: .group-list v-for group  -->
+    <div class="container-fluid">
+      <taskWording>
+          <template v-slot:header>
+          <h1>Festa do {{getParticipantName}}</h1>
+          </template>
+      </taskWording>
+      <div class="group-list"
+          v-for="group, groupIndex in getGroups" :key="groupIndex"
+      >
+          <div class="row">
+              <div class="col-12">
+                  <sectionLeft>
+                      <template v-slot:header>
+                          <h3>{{group.groupTitle}}</h3>
+                          <span v-if="group.preference === 1">FAVORITO</span>
+                          <span v-if="group.preference === -1">MENOS GOSTA</span>
+                      </template>
+                      <template v-slot:sectionBody>
+                          <div class="wrapper">
+                              <div v-for="job in group.selectedJobs" :key="job">
+                                <professionCard :jobTitle="job.jobTitle" />
+                              </div>
+                          </div>
+                      </template>
+                  </sectionLeft>
+              </div>
+          </div>
+      </div> <!-- END: .group-list v-for group  -->
+    </div>
 
 
 
