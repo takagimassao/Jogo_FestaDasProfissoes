@@ -20,9 +20,17 @@
                           <span v-if="group.preference === -1">MENOS GOSTA</span>
                       </template>
                       <template v-slot:sectionBody>
-                          <div class="wrapper row">
-                              <div v-for="job in group.selectedJobs" :key="job" class="col-3">
-                                <professionCard :jobTitle="job.jobTitle" />
+                          <div class="wrapper">
+                              <div class="row">
+                                <div v-for="job in group.selectedJobs" :key="job" class="col-3">
+                                  <professionCard :jobTitle="job.jobTitle" />
+                                </div>
+                              </div>
+                              <div class="row" v-if="group.justification != ''">
+                                <div class="col-12">
+                                  <h3>Justificativa</h3>
+                                  <p>{{group.justification}}</p>
+                                </div>
                               </div>
                           </div>
                       </template>
