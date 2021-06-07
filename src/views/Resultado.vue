@@ -72,7 +72,7 @@ export default {
   methods: {
     validateFavoritesJustification() {
       if(this.getFavoritedGroups.some(g => g.justification.length < 10)) {
-        window.alert("Explique em maiores detalhes o motivo de escolher esse(s) Grupinho(s) como favorito(s)")
+        window.alert("Explique em maiores detalhes o motivo de escolher esse(s) Grupo(s) como favorito(s)")
         return false
       }
       else {

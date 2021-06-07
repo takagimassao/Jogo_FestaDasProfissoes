@@ -86,16 +86,16 @@ export default {
             this.favoriteGroup(groupID);
         }
         else {
-            window.alert("Você só pode favoritar no máxmo 2 Grupinhos.")
+            window.alert("Você só pode favoritar no máxmo 2 Grupos.")
         }
     },
     validateFavorites() {
       if(this.getFavoritesLength < 1) {
-        window.alert("Deve haver ao menos 1 Grupinho favoritado")
+        window.alert("Deve haver ao menos 1 Grupo favoritado")
         return false
       }
       else if(this.getFavoritesLength > 2) {
-        window.alert("Você só pode favoritar no máxmo 2 Grupinhos.")
+        window.alert("Você só pode favoritar no máxmo 2 Grupos.")
         return false
       }
       else {

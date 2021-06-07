@@ -1,6 +1,5 @@
+// import { reject, resolve } from 'core-js/fn/promise';
 import { createStore } from 'vuex'
-
-
 /* Notas:
   Estou assumindo que cada lista de objetos é um array sequencial, 
   de forma que objeto.id é sempre igual ao seu índice no array.
@@ -8,8 +7,10 @@ import { createStore } from 'vuex'
 export default createStore({
     state: {
         participant: {
-            name: "Christian Tsujiguchi",
-            login: "012.456.789-10",
+            name: "",
+            // documento CPF
+            // login: "012.456.789-10",
+            // chave única ou código de licença
             accessCode: "abacaxi"
         },
         evaluator: {
@@ -629,7 +630,7 @@ export default createStore({
         //     justification: "Porque azul é a cor da inovação e tecnologia"
         //   },
         // ],
-        // JSON para enviar à API da plataforma de Gestão de Licenças
+        // Sugestão de JSON para enviar à API da plataforma de Gestão de Licenças
         // ---- report[] example ----
         // report: {
         //   groups: [
@@ -682,6 +683,9 @@ export default createStore({
         report: {}
     },
     mutations: {
+      nameParticipant(state, name) {
+        state.participant.name = name;
+      },
       inviteJob(state, payload) {
         if (state.invitedJobs.every( j => j.id !== payload.id)) {
           state.invitedJobs.push(payload);
@@ -697,7 +701,6 @@ export default createStore({
         try {
             var newGroup = {
                 id: state.maxGroupID++,
-                // groupTitle: 'group ' + state.maxGroupID++,
                 groupTitle: "",
                 selectedJobs: [],
                 preference: 0,
@@ -742,6 +745,17 @@ export default createStore({
           expeled: reportDisliked
         }
         commit('updateReport', report);
+      },
+      setParticipantName({commit}, participantName){
+        console.log(participantName);
+        if(typeof participantName == "string" && participantName.length > 0) {
+          commit('nameParticipant', participantName);
+          return true;
+        }
+        else {
+          window.alert("Digite seu nome completo");
+          return false;
+        }
       }
     },
     getters: {
@@ -750,6 +764,9 @@ export default createStore({
         },
         getParticipantName: state => {
           return state.participant.name;
+        },
+        getAcessCode: state => {
+          return state.participant.accessCode;
         },
         getAllJobs: state => {
           return state.jobs;
@@ -812,6 +829,9 @@ export default createStore({
         },
         getMehGroups: state => {
           return state.groups.filter(g => g.preference === 0);
+        },
+        checkAccessCode: state => userCode => {
+          return state.participant.accessCode === userCode;
         }
     },
     modules: {

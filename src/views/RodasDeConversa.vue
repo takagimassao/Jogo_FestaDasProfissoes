@@ -7,7 +7,7 @@
       <template v-slot:wording>
         <p>Legal! Sua festa está TOP! Sua lista ficou demais e seus convidados já estão todos na festa. </p>
         <p>Quero que você imagine todas essas pessoas na festa e pense na situação real! Numa festa real, não fica todo mundo junto num único grupão, não é mesmo? </p>
-        <p>Então você vai separar seus convidados em grupinhos. Você vai agrupar os convidados conforme o critério que vc achar melhor! Só não vale deixar nenhum convidado excluído, sozinho, ok?</p>
+        <p>Então você vai separar seus convidados em Grupinhos. Você vai agrupar os convidados conforme o critério que vc achar melhor! Só não vale deixar nenhum convidado excluído, sozinho, ok?</p>
         <p>Então, mãos a obra! Na sua festa, quem está conversando com quem?</p>
       </template>
       <template v-slot:router-btn>
@@ -131,15 +131,15 @@ export default {
     },
     validateGroups() {
       if(this.getGroups < 1) {
-        window.alert("Para avançar, crie ao menos 2 Grupinhos. Cada Grupinho deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupinho.")
+        window.alert("Para avançar, crie ao menos 2 Grupos. Cada Grupo deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupo.")
         return false;
       } 
       else if (this.getGroups.some(g => g.selectedJobs.length < 1)) {
-        window.alert("Cada Grupinho deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupinho.")
+        window.alert("Cada Grupo deve conter ao menos 1 Profissão e todas as Profissões convidadas devem estar em algum Grupo.")
         return false;
       }
       else if (this.getInvitedList.length > 0) {
-        window.alert("Todas as Profissões convidadas devem estar em algum Grupinho.")
+        window.alert("Todas as Profissões convidadas devem estar em algum Grupo.")
         return false;
       }
       else {

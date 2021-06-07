@@ -86,12 +86,12 @@ export default {
             this.dislikeGroup(groupID);
         }
         else {
-            window.alert("Você só pode retirar no máxmo 1 Grupinho")
+            window.alert("Você só pode retirar no máxmo 1 Grupo")
         }
     },
     validateDislikeds() {
       if(this.getDislikedLength < 1) {
-        window.alert("Você deve retirar exatamente 1 Grupinho")
+        window.alert("Você deve retirar exatamente 1 Grupo")
         return false
       }
       else {

@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <taskWording>
       <template v-slot:header>
-        <h1>Vamos nomear os grupinhos?</h1>
+        <h1>Vamos nomear os Grupos?</h1>
       </template>
       <template v-slot:wording>
         <p>Quando você agrupou essas pessoas, provavelmente pensou em algo que elas tinham em comum, não é mesmo? Ou seja, algum critério foi adotado deixá-los juntos. </p>
-        <p>Pensando neste critério, que vc utilizou para agrupar as pessoas, gostaria que você escolhesse um nome para cada grupinho. O nome que vc quiser! </p>
-        <p>Depois que nomear todos os grupinhos, é só avançar.</p>
+        <p>Pensando neste critério, que vc utilizou para agrupar as pessoas, gostaria que você escolhesse um nome para cada Grupo. O nome que vc quiser! </p>
+        <p>Depois que nomear todos os Grupos, é só avançar.</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"
@@ -32,7 +32,7 @@
                       :name="'group' + group.id"
                       :id="'group' + group.id"
                       v-model="group.groupTitle"
-                      placeholder="Digite o nome do Grupinho..."
+                      placeholder="Digite o nome do Grupo..."
                     />
                     <button @click="saveGroupName(groupIndex)" class="btn--secondary">Salvar</button>
                   </div>
@@ -102,7 +102,7 @@ export default {
     },
     validateGroupsNames() {
       if(this.getGroups.some(g => g.groupTitle === "")) {
-        window.alert("Todos os Grupinhos precisam de um nome.")
+        window.alert("Todos os Grupos precisam de um nome.")
         return false
       }
       else {

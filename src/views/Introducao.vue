@@ -23,17 +23,20 @@
       </template>
     </taskWording>
   </div>
+  <rawDisplayer :value="$store.state" title="Store State"/>
 </template>
 
 <script>
 // @ is an alias to /src
 import taskWording from '@/components/TaskWording.vue'
 import {mapGetters, mapActions} from "vuex"
+import rawDisplayer from '@/components/RawDisplayer.vue'
 
 export default {
   name: 'introducao',
   components: {
     taskWording,
+    rawDisplayer
   }
 }
 </script>
