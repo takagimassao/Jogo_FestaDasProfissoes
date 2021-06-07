@@ -349,7 +349,7 @@ export default createStore({
           },
           {
             id: 66,
-            jobTitle: "CI*ÊNCIA DA COMPUTAÇÃO",
+            jobTitle: "CIÊNCIA DA COMPUTAÇÃO",
             jobDescription: "Poderá desenvolver softwares, aplicativos básicos para atuar no desenvolvimento de sistemas. Presta consultoria e suporte, elabora sistemas operacionais, e desenvolve projetos"
           },
           {
