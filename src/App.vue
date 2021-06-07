@@ -45,6 +45,8 @@ body {
   font-weight: 300;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 //page title
@@ -117,7 +119,7 @@ button {
 }
 .container-fluid {
   min-height: 100vh;
-  padding: 0;
+  padding: 0 0 100px;
   background-color: var(--dark-blue);
   background-image: url('assets/img/page-background.svg');
 }
