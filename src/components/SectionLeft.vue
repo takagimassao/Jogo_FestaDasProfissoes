@@ -21,6 +21,7 @@ export default {
     border-radius: 0 56px 56px 0;
     color: white;
     padding-bottom: 2rem;
+    height: 100%;
   }
 
   .section__header {
@@ -31,6 +32,13 @@ export default {
     background-color: var(--light-color);
     color: var(--dark-color);
     border-radius: 0 56px 56px 0;
+    padding: 2.5rem 5rem;
+    height: calc(100% - 7.5rem);
+  }
+  .bg-img .section__header {
+    background-image: url("../assets/img/section__header-background.svg");
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
     

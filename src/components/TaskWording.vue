@@ -31,6 +31,9 @@ export default {
 <style lang="css" scoped>
     .header {
         background-color: white;
+        background-image: url("../assets/img/task-wording-bg.svg");
+        background-repeat: no-repeat;
+        background-position: right 3rem top 3rem;
         padding-left: 3rem;
         border-radius: 0 0 0 56px;
         text-align: center;
@@ -48,6 +51,24 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        background-image: url();
+        background-image: url("../assets/img/party-people.svg");
+        background-origin: border-box;
+        background-size: 435px 290px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
     }
+    .favorite .header__next-section {
+        background-image: url("../assets/img/favorited-group.svg");
+        background-repeat: no-repeat;
+        background-position: right 3rem bottom;
+    }
+    .meh .header__next-section {
+        background-image: url("../assets/img/meh-group.svg");
+    }
+
+    .disliked .header__next-section {
+        background-image: url("../assets/img/disliked-group.svg");
+
+    }
+    
 </style>

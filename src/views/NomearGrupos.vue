@@ -21,34 +21,30 @@
         <div class="group-list"
           v-for="group, groupIndex in getGroups" :key="groupIndex"
         >
-          <sectionRight>
+          <sectionRight class="bg-img">
             <template v-slot:header>
-                <div class="group-list__header row align-items-center">
-                  <div class="col-12" v-show="!savedGroupNames[groupIndex]">
+                <div class="row">
+                  <div class="col-6 name-group__header" v-show="!savedGroupNames[groupIndex]">
                     <label :for="'group' + group.id">Nome: </label>
                     <!-- EDITING -->
                     <input
-                      class="shortTextInput"
                       :name="'group' + group.id"
                       :id="'group' + group.id"
                       v-model="group.groupTitle"
-    
                       placeholder="Digite o nome do Grupinho..."
                     />
-                    <button @click="saveGroupName(groupIndex)">Salvar</button>
+                    <button @click="saveGroupName(groupIndex)" class="btn--secondary">Salvar</button>
                   </div>
-                  <div class="col" v-show="savedGroupNames[groupIndex]">
+                  <div class="col-6 name-group__header" v-show="savedGroupNames[groupIndex]">
                     <!-- SAVED -->
-                    <h3>{{group.groupTitle}}</h3>
-                  </div>
-                  <div class="col" v-show="savedGroupNames[groupIndex]">
-                    <button @click="renameGroupName(groupIndex)">Renomear</button>
+                    <h2>{{group.groupTitle}}</h2>
+                    <button @click="renameGroupName(groupIndex)" class="btn--tertiary">Renomear</button>
                   </div>
                 </div>
             </template>
             <template v-slot:sectionBody>
-              <div class="wrapper">
-                <div v-for="job in group.selectedJobs" :key="job">
+              <div class="wrapper row">
+                <div v-for="job in group.selectedJobs" :key="job" class="col-3">
                   <professionCard :jobTitle="job.jobTitle" />
                 </div>
               </div>
@@ -128,5 +124,29 @@ export default {
 </script>
 
 <style lang="css">
+
+.name-group__header {
+  display: flex;
+  align-items: center;
+}
+
+.name-group__header h2 {
+  margin-right: 1rem;
+}
+
+.name-group__header label {
+  flex: 0 0 auto;
+  margin-right: 1rem;
+}
+.name-group__header input {
+  flex: 1 1 20rem;
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
+.name-group__header button {
+  display: inline-block;
+  flex: 0 0 auto;
+  margin-right: 1rem;
+}
 
 </style>

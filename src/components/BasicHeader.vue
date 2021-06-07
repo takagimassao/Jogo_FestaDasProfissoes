@@ -9,7 +9,7 @@
                     </slot>
                     <!-- can add paragraphs inside wording slot -->
                     <slot name="subtitle">
-                        <h5>por Rafaela Brissac</h5>
+                        <h3>por Rafaela Brissac</h3>
                     </slot>
                 </div>
             </div>
@@ -26,6 +26,9 @@ export default {
 <style lang="css" scoped>
     .basic-header {
         background-color: var(--primary-color);
+        background-image: url("../assets/img/basic-header-bg.svg");
+        background-repeat: no-repeat;
+        background-position-x: center;
         border-radius: 0 0 0 56px;
         text-align: center;
         color: white;

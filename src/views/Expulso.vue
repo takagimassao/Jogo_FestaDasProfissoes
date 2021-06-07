@@ -19,28 +19,28 @@
         </router-link>
       </template>
     </taskWording>
-    <div class="row">
-      <div class="col-12">
-        <div class="group-list"
-          v-for="group, groupIndex in getNotFavoritedGroups" :key="groupIndex"
-        >
-          <sectionLeft>
+    <div class="group-list"
+      v-for="group, groupIndex in getNotFavoritedGroups" :key="groupIndex"
+    >
+      <div class="row">
+        <div class="col-12  mb-5">
+          <sectionLeft class="bg-img">
             <template v-slot:header>
-                <div class="group-list__header row align-items-center">
-                  <div class="col">
-                    <h3>{{group.groupTitle}}</h3>
-                  </div>
-                  <div class="col" v-show="group.preference === 0">
-                      <button @click="dislike(group.id)">Retirar</button>
-                  </div>
-                  <div class="col" v-show="group.preference === -1">
-                      <button @click="mehGroup(group.id)">Desfazer</button>
-                  </div>
+              <div class="name-group__header">
+                <h2>{{group.groupTitle}}</h2>
+                <div class="name-group__dislike" v-show="group.preference === 0">
+                    <button @click="dislike(group.id)" class="btn--secondary">Retirar</button>
+                    <button @click="dislike(group.id)" class="icon-btn"><img src="../assets/img/dislike.svg" alt="favoritar grupo"></button>
                 </div>
+                <div class="name-group__undo" v-show="group.preference === -1">
+                    <button @click="mehGroup(group.id)" class="btn--tertiary">Desfazer</button>
+                    <button @click="mehGroup(group.id)" class="icon-btn"><img src="../assets/img/undo.svg" alt="desfavoritar grupo"></button>
+                </div>
+              </div>
             </template>
             <template v-slot:sectionBody>
-              <div class="wrapper">
-                  <div v-for="job in group.selectedJobs" :key="job">
+              <div class="wrapper row">
+                  <div v-for="job in group.selectedJobs" :key="job" class="col-3">
                       <professionCard :jobTitle="job.jobTitle" />
                   </div>
               </div>

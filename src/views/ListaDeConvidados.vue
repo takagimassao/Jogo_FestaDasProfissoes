@@ -18,7 +18,7 @@
     </taskWording>
     <div class="row">
       <div class="col-9">
-        <sectionLeft>
+        <sectionLeft class="bg-img">
           <template v-slot:header>
             <h2>Possíveis convidados</h2>
           </template>
@@ -37,7 +37,7 @@
               v-for="job, index in getInvitedList" :key="index" >
               <professionCard :jobTitle="job.jobTitle">
                 <template v-slot:button>
-                  <button v-on:click="uninviteJob(job.id)">X</button>
+                  <button v-on:click="uninviteJob(job.id)"><img src="../assets/img/awesome-times-circle.svg" alt="Ícone remover xis"></button>
                 </template>
               </professionCard>
             </div> <!-- END: v-for -->
@@ -101,37 +101,4 @@ export default {
 </script>
 
 <style lang="css">
-  .section__content {
-    background-color: greenyellow;
-  }
-  .section__content .profession-item__card {
-    margin-bottom: 1.25rem;
-    
-    background-color: white;
-  }
-  .section__content--invited {
-    display: flex;
-    flex-direction: column;
-    background-color: hotpink;
-  }
-  .section__content--invited .section-content__profession-card {
-    margin-bottom: 1.25rem;
-  }
-
-  .section-content__profession-card {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    box-shadow: 0.5rem 0.5rem 1rem #9f9f9f;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-  }
-  .section-content__profession-card span {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0 auto 0 0;
-  } 
-  .section-content__profession-card button {
-    margin: 0 0 0 auto;
-  }
 </style>

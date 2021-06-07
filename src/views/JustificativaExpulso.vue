@@ -1,51 +1,52 @@
 <template lang="html">
-  <taskWording>
-    <template v-slot:header>
-      <h1>Meus grupos favoritos</h1>
-    </template>
-    <template v-slot:wording>
-        <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
-        <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
-        <p>Após justificar, clique em "Avançar".</p>
-    </template>
-    <template v-slot:router-btn>
-      <router-link  class="btn--primary"
-          type="submit"
-          to="/Obrigado">
-          Avançar
-      </router-link>
-    </template>
-  </taskWording>
+  <div class="container-fluid">
+    <taskWording>
+      <template v-slot:header>
+        <h1>Meus grupos favoritos</h1>
+      </template>
+      <template v-slot:wording>
+          <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
+          <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
+          <p>Após justificar, clique em "Avançar".</p>
+      </template>
+      <template v-slot:router-btn>
+        <router-link  class="btn--primary"
+            type="submit"
+            to="/Obrigado">
+            Avançar
+        </router-link>
+      </template>
+    </taskWording>
     <div class="row">
-        <div class="col-8">
-            <sectionLeft>
+        <div class="col-8 mb-5">
+            <sectionLeft class="bg-img">
                 <template v-slot:header>
-                    <h3>{{getDislikedGroup.groupTitle}}</h3>
+                    <h3>{{group.groupTitle}}</h3>
                 </template>
                 <template v-slot:sectionBody>
-                    <div class="wrapper">
-                        <div v-for="job in getDislikedGroup.selectedJobs" :key="job">
+                    <div class="wrapper row">
+                        <div v-for="job in group.selectedJobs" :key="job" class="col-3">
                             <professionCard :jobTitle="job.jobTitle" />
                         </div>
                     </div>
                 </template>
             </sectionLeft>
         </div>
-        <div class="col-4">
-            <sectionRight>
+        <div class="col-4 mb-5">
+            <sectionRight class="bg-img">
                 <template v-slot:header>
                     <span> Justificativa </span>
                 </template>
                 <template v-slot:sectionBody>
-                    <input
-                        type="textarea"
-                        v-model="getDislikedGroup.justification"
-                        placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
-                    >
+                  <textarea
+                      v-model="group.justification"
+                      :placeholder="placeholder+group.groupTitle"
+                  />
                 </template>
             </sectionRight>
         </div>
     </div>
+  </div>
 
 
 
@@ -67,12 +68,20 @@ export default {
     sectionRight,
     professionCard,
   },
+  data() {
+    return {
+      placeholder: "Digite aqui o motivo de você não gostar do grupo "
+    }
+  },
   computed: {
     //VueX Storage getters
     ...mapGetters([
       'getDislikedGroup',
       'getState'
-    ])
+    ]),
+    group() {
+      return this.getDislikedGroup;
+    }
     // there should be a computed object to bind the input value to vuex store. Next version should take care of this.
   },
   methods: {
@@ -96,12 +105,4 @@ export default {
 </script>
 
 <style scoped lang="css">
-    .group-list {
-        margin-bottom: 2.5rem;
-    }
-    .section--right,
-    .section--left {
-        height: 100%;
-        margin-bottom: 2rem;
-    }
 </style>

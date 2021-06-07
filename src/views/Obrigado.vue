@@ -1,22 +1,23 @@
 <template lang="html">
   <div class="container-fluid">
-    <taskWording>
+    <basicHeader>
       <template v-slot:header>
-        <h1>Obrigado!</h1>
+        <h1>Obrigado por participar dessa festa!</h1>
       </template>
-      <template v-slot:wording>
-          <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
-          <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
-          <p>Após justificar, clique em "Avançar".</p>
+      <template v-slot:subtitle>
+        <h3>Festa das profissões - por Rafaela Brissac</h3>
       </template>
-      <template v-slot:router-btn>
+    </basicHeader>
+    
+    <div class="row">
+      <div class="col-4 centered">
         <router-link  class="btn--primary"
             type="submit"
             to="/Resultado">
-            Finalizar atividade e ver resultados
+            Ver minha festa
         </router-link>
-      </template>
-    </taskWording>
+      </div>
+    </div>
   </div>
 
 
@@ -25,13 +26,13 @@
 
 <script>
 // @ is an alias to /src
-import taskWording from '@/components/TaskWording.vue'
+import basicHeader from '@/components/BasicHeader.vue'
 import {mapGetters, mapActions} from "vuex"
 
 export default {
   name: 'obrigado',
   components: {
-    taskWording,
+    basicHeader
   },
   computed: {
     //VueX Storage getters

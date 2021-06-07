@@ -21,31 +21,30 @@
           v-for="group, groupIndex in getFavoritedGroups" :key="groupIndex"
       >
           <div class="row">
-              <div class="col-8">
-                  <sectionLeft>
+              <div class="col-8 mb-5">
+                  <sectionLeft class="bg-img">
                       <template v-slot:header>
-                          <h3>{{group.groupTitle}}</h3>
+                          <h2>{{group.groupTitle}}</h2>
                       </template>
                       <template v-slot:sectionBody>
-                          <div class="wrapper">
-                              <div v-for="job in group.selectedJobs" :key="job">
+                          <div class="wrapper row">
+                              <div v-for="job in group.selectedJobs" :key="job" class="col-3">
                                   <professionCard :jobTitle="job.jobTitle" />
                               </div>
                           </div>
                       </template>
                   </sectionLeft>
               </div>
-              <div class="col-4">
-                  <sectionRight>
+              <div class="col-4 mb-5">
+                  <sectionRight class="bg-img">
                       <template v-slot:header>
-                          <span> Justificativa </span>
+                          <h2>Justificativa</h2>
                       </template>
                       <template v-slot:sectionBody>
-                          <input
-                              type="textarea"
-                              v-model="group.justification"
-                              placeholder="Digite aqui o motivo de ter escolhido esse Grupinho como um favorito seu."
-                          >
+                        <textarea
+                            v-model="group.justification"
+                            :placeholder="placeholder+group.groupTitle"
+                        />
                       </template>
                   </sectionRight>
               </div>
@@ -72,6 +71,11 @@ export default {
     sectionLeft,
     sectionRight,
     professionCard,
+  },
+  data() {
+    return {
+      placeholder: "Digite aqui o motivo de ter favoritado o grupo "
+    }
   },
   computed: {
     //VueX Storage getters
@@ -102,12 +106,4 @@ export default {
 </script>
 
 <style scoped lang="css">
-    .group-list {
-        margin-bottom: 2.5rem;
-    }
-    .section--right,
-    .section--left {
-        height: 100%;
-        margin-bottom: 2rem;
-    }
 </style>

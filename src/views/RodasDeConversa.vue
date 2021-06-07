@@ -23,14 +23,14 @@
             <h2>Convidados</h2>
           </template>
           <template v-slot:sectionBody>
-            <div class="wrapper">
+            <div class="wrapper row">
               <draggable
                 :list="invitedList"
-                group="cars"
+                group="jobs"
                 itemKey="jobTitle"
               >
                 <template #item="{ element, index }">
-                  <professionCard :jobTitle="element.jobTitle" />
+                  <professionCard :jobTitle="element.jobTitle" class="col" />
                 </template>
               </draggable>
             </div>
@@ -38,7 +38,7 @@
         </sectionLeft>
       </div> <!-- END: col-3 -->
       <div class="col-9">
-        <button @click="addGroup()">Criar novo grupo</button>
+        <button @click="addGroup()" class="btn--secondary">Criar novo grupo</button>
         <div class="group-list"
           v-for="group, groupIndex in getGroups" :key="groupIndex"
         >
@@ -46,20 +46,21 @@
             <template v-slot:header>
                 <div class="wrapper row">
                   <h3 class="col-11">{{group.groupTitle}}</h3>
-                  <button @click="delGroup(group.id)" class="col-1">X</button>
+                  <button class="col-1 btn--secondary" v-on:click="delGroup(group.id)"><img src="../assets/img/awesome-times-circle.png" alt="Ícone remover xis"></button>
                 </div>
             </template>
             <template v-slot:sectionBody>
-              <div class="wrapper">
-              <draggable
-                :list="group.selectedJobs"
-                group="cars"
-                itemKey="jobTitle"
-              >
-                <template #item="{ element, index }">
-                  <professionCard :jobTitle="element.jobTitle" />
-                </template>
-              </draggable>
+              <div class="wrapper row">
+                <draggable
+                  :list="group.selectedJobs"
+                  group="jobs"
+                  itemKey="jobTitle"
+                  class="job-list"
+                >
+                  <template #item="{ element, index }">
+                    <professionCard :jobTitle="element.jobTitle" class="col-3"/>
+                  </template>
+                </draggable>
               </div>
             </template>
           </sectionRight>
@@ -151,39 +152,17 @@ export default {
 </script>
 
 <style lang="css">
-  .section--big {
-    margin: 2rem 0;
-  }
-  .section__content .profession-item__card {
-    margin-bottom: 1.25rem;
-  }
-  .section__content {
-    padding: 1rem 2rem 2rem;
+  .job-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
-  .section__content--invited {
-    display: flex;
-    flex-direction: column;
-  }
-  .section__content--invited .section-content__profession-card {
-    margin-bottom: 1.25rem;
+  .job-list .section-content__profession-card {
+    margin: 1.3rem 2rem;
   }
 
-  .section-content__profession-card {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    box-shadow: 0.5rem 0.5rem 1rem #9f9f9f;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 20px;
-  }
-  .section-content__profession-card span {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0 auto 0 0;
-  } 
-  .section-content__profession-card button {
-    margin: 0 0 0 auto;
+  .job-list .sortable-ghost{
+    flex: 0 0 25%;
   }
 </style>

@@ -51,52 +51,52 @@ export default createStore({
         // ],
         
         invitedJobs: [],
-        groups: [],
+        // groups: [],
         // ---- groups[] example ----
-        // groups: [
-        //   {
-        //       id: 0,
-        //       groupTitle: "Red",
-        //       selectedJobs: [{
-        //           jobTitle: 'Job 1',
-        //           id: 0
-        //         },
-        //         {
-        //           jobTitle: 'Job 2',
-        //           id: 1
-        //         }
-        //       ],
-        //       // -1 for 'disliked', 0 for 'neutral' and 1 for 'favorited'
-        //       preference: -1,
-        //       justification: "Porque é vermelho é violento"
-        //   },
-        //   {
-        //       id: 1,
-        //       groupTitle: "Green",
-        //       selectedJobs: [{
-        //         jobTitle: 'Job 4',
-        //         id: 3
-        //       }],
-        //       preference: 0,
-        //       justification: ""
-        //   },          
-        //   {
-        //     id: 3,
-        //     groupTitle: "Blue",
-        //     selectedJobs: [
-        //       {
-        //         jobTitle: 'Job 3',
-        //         id: 2
-        //       },
-        //       {
-        //         jobTitle: 'Job 5',
-        //         id: 4
-        //       }
-        //     ],
-        //     preference: 1,
-        //     justification: "Porque azul é a cor da inovação e tecnologia"
-        //   },
-        // ],
+        groups: [
+          {
+              id: 0,
+              groupTitle: "Red",
+              selectedJobs: [{
+                  jobTitle: 'Job 1',
+                  id: 0
+                },
+                {
+                  jobTitle: 'Job 2',
+                  id: 1
+                }
+              ],
+              // -1 for 'disliked', 0 for 'neutral' and 1 for 'favorited'
+              preference: -1,
+              justification: "Porque é vermelho é violento"
+          },
+          {
+              id: 1,
+              groupTitle: "Green",
+              selectedJobs: [{
+                jobTitle: 'Job 4',
+                id: 3
+              }],
+              preference: 1,
+              justification: ""
+          },          
+          {
+            id: 3,
+            groupTitle: "Blue",
+            selectedJobs: [
+              {
+                jobTitle: 'Job 3',
+                id: 2
+              },
+              {
+                jobTitle: 'Job 5',
+                id: 4
+              }
+            ],
+            preference: 1,
+            justification: "Porque azul é a cor da inovação e tecnologia"
+          },
+        ],
         // JSON para enviar à API da plataforma de Gestão de Licenças
         // ---- report[] example ----
         // report: {
