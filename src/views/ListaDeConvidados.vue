@@ -5,8 +5,8 @@
         <h1>Bora preparar a lista dos convidados?</h1>
       </template>
       <template v-slot:wording>
-        <p>Você irá dar uma festa e cada profissão representa um convidado. Decida quais profissões você convidaria para a festa e quais você não vai convidar.</p>
-        <p>Quando estiver satisfeito, avance para a próxima etapa.</p>
+        <p>Seus possíveis convidados estão abaixo. Aqui você irá escolher os convidados pelas suas profissões! </p>
+        <p>Só não pode convidar TODO MUNDO tá? Pode começar!</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"

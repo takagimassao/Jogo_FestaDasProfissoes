@@ -5,8 +5,10 @@
         <h1>Grupinhos</h1>
       </template>
       <template v-slot:wording>
-        <p>A festa começou e as profissões começaram a curtir. Você nota que as profissões que possuem algo em comum começaram a se agrupar em rodas de conversa. Como são esses grupos?</p>
-        <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
+        <p>Legal! Sua festa está TOP! Sua lista ficou demais e seus convidados já estão todos na festa. </p>
+        <p>Quero que você imagine todas essas pessoas na festa e pense na situação real! Numa festa real, não fica todo mundo junto num único grupão, não é mesmo? </p>
+        <p>Então você vai separar seus convidados em grupinhos. Você vai agrupar os convidados conforme o critério que vc achar melhor! Só não vale deixar nenhum convidado excluído, sozinho, ok?</p>
+        <p>Então, mãos a obra! Na sua festa, quem está conversando com quem?</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"
@@ -23,11 +25,12 @@
             <h2>Convidados</h2>
           </template>
           <template v-slot:sectionBody>
-            <div class="wrapper row">
+            <div class="wrapper row h-100">
               <draggable
                 :list="invitedList"
                 group="jobs"
                 itemKey="jobTitle"
+                class="h-100 invited-list"
               >
                 <template #item="{ element, index }">
                   <professionCard :jobTitle="element.jobTitle" class="col" />
@@ -44,18 +47,20 @@
         >
           <sectionRight>
             <template v-slot:header>
-                <div class="wrapper row">
-                  <h3 class="col-11">{{group.groupTitle}}</h3>
+                <div class="wrapper row justify-right">
                   <button class="col-1 btn--secondary" v-on:click="delGroup(group.id)"><img src="../assets/img/awesome-times-circle.png" alt="Ícone remover xis"></button>
                 </div>
             </template>
             <template v-slot:sectionBody>
-              <div class="wrapper row">
+              <div class="wrapper row h-100">
+                <div v-if="group.selectedJobs.length < 1">
+                  <span>Arraste uma profissão para cá para formar um grupo</span>
+                </div>
                 <draggable
                   :list="group.selectedJobs"
                   group="jobs"
                   itemKey="jobTitle"
-                  class="job-list"
+                  class="job-list h-100"
                 >
                   <template #item="{ element, index }">
                     <professionCard :jobTitle="element.jobTitle" class="col-3"/>
@@ -152,6 +157,9 @@ export default {
 </script>
 
 <style lang="css">
+  .justify-right {
+    justify-content: flex-end;
+  }
   .job-list{
     display: flex;
     flex-wrap: wrap;
@@ -165,4 +173,21 @@ export default {
   .job-list .sortable-ghost{
     flex: 0 0 25%;
   }
+  .invited-list .sortable-ghost{
+    flex: 0 0 100%;
+  }
+
+  .h-100 {
+    height: 100%;
+  }
+
+  .wrapper.row.h-100,
+  .job-list.h-100 {
+    min-height: 10rem;
+  }
+
+  .job-list .section-content__profession-card {
+    height: 100%;
+  }
+
 </style>

@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="container-fluid">
-    <taskWording>
+    <taskWording class="disliked">
       <template v-slot:header>
         <h1>Meus grupos favoritos</h1>
       </template>
       <template v-slot:wording>
-          <p>Adorei saber que você gostaria de passar mais tempo com estes grupos. Todos parecem ser muito legais, mas eu fiquei curiosa... e gostaria de saber por que você escolheu estes grupo!</p>
-          <p>Escreva no campo "Justificativa" (ao lado de cada grupo favorito), o motivo pelo qual você escolheu estes grupos para ficar mais tempo junto na festa. </p>
-          <p>Após justificar, clique em "Avançar".</p>
+          <p>Coitado deste grupo. Não pôde ficar até o final da festa :( </p>
+          <p>Me conte na Justificativa porque você escolheu esse grupo para expulsar da festa. </p>
+          <p>Depois é só clicar em "Avançar"</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"
@@ -25,7 +25,7 @@
                 </template>
                 <template v-slot:sectionBody>
                     <div class="wrapper row">
-                        <div v-for="job in group.selectedJobs" :key="job" class="col-3">
+                        <div v-for="job in group.selectedJobs" :key="job" class="col-4">
                             <professionCard :jobTitle="job.jobTitle" />
                         </div>
                     </div>

@@ -59,8 +59,6 @@ export default {
     }
     .favorite .header__next-section {
         background-image: url("../assets/img/favorited-group.svg");
-        background-repeat: no-repeat;
-        background-position: right 3rem bottom;
     }
     .meh .header__next-section {
         background-image: url("../assets/img/meh-group.svg");

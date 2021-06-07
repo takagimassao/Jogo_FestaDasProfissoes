@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="section-content__profession-card h-100">
+    <div class="section-content__profession-card">
         <h4>{{jobTitle}}</h4>
         <slot name="button"></slot>
     </div>

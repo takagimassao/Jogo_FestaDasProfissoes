@@ -33,6 +33,7 @@ export default {
     color: var(--dark-color);
     border-radius: 0 56px 56px 0;
     padding: 2.5rem 5rem;
+    min-height: 3rem;
     height: calc(100% - 7.5rem);
   }
   .bg-img .section__header {
@@ -40,6 +41,4 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
   }
-
-    
 </style>

@@ -33,6 +33,7 @@ export default {
     color: var(--dark-color);
     border-radius: 56px 0 0 56px;
     padding: 2rem 2rem;
+    min-height: 10rem;
     height: calc(100% - 7.5rem);
   }
   

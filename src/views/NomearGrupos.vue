@@ -5,8 +5,9 @@
         <h1>Vamos nomear os grupinhos?</h1>
       </template>
       <template v-slot:wording>
-        <p>A festa começou e as profissões começaram a curtir. Você nota que as profissões que possuem algo em comum começaram a se agrupar em rodas de conversa. Como são esses grupos?</p>
-        <p>Crie grupos e arraste as profissões para cada grupo. Quando estiver satisfeito, avance para a próxima etapa.</p>
+        <p>Quando você agrupou essas pessoas, provavelmente pensou em algo que elas tinham em comum, não é mesmo? Ou seja, algum critério foi adotado deixá-los juntos. </p>
+        <p>Pensando neste critério, que vc utilizou para agrupar as pessoas, gostaria que você escolhesse um nome para cada grupinho. O nome que vc quiser! </p>
+        <p>Depois que nomear todos os grupinhos, é só avançar.</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="container-fluid">
-    <taskWording>
+    <taskWording class="favorite">
       <template v-slot:header>
         <h1>Meu grupo favorito!</h1>
       </template>

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="container-fluid">
-    <taskWording>
+    <taskWording  class="favorite">
       <template v-slot:header>
         <h1>Meus grupos favoritos</h1>
       </template>
@@ -28,7 +28,7 @@
                       </template>
                       <template v-slot:sectionBody>
                           <div class="wrapper row">
-                              <div v-for="job in group.selectedJobs" :key="job" class="col-3">
+                              <div v-for="job in group.selectedJobs" :key="job" class="col-4">
                                   <professionCard :jobTitle="job.jobTitle" />
                               </div>
                           </div>

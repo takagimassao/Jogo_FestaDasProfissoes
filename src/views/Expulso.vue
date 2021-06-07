@@ -1,15 +1,14 @@
 <template lang="html">
   <div class="container-fluid">
-    <taskWording>
+    <taskWording class="disliked">
       <template v-slot:header>
         <h1>Meu grupo favorito!</h1>
       </template>
       <template v-slot:wording>
-          <p>Beleza! Tudo pronto! A festa já começou....você já cumprimentou todos os seus convidados, afinal, vc é um ótimo anfitrião! Mas... depois que vc já falou com todo mundo, com qual grupo você gostaria de ficar junto durante o resto da festa?</p>
-          <p>Qual é o grupo que vc acharia mais legal passar tempo da festa?</p>
-          <p>Você precisa escolher  1 ou 2 grupos que tenha mais a ver com vc!</p>
-          <p>Clique em "Favoritar" nos grupos que escolher.</p>
-    
+          <p>Depois de algumas horas de festa, os vizinhos começaram a reclamar do barulho! Já estava tarde e eles chamaram a polícia... </p>
+          <p>Quando a polícia chegou na sua festa, disseram: "Olha, para essa festa poder continuar só tem um jeito! Vc precisa escolher um grupo e pedir que se retire. Assim, com um grupo a menos, você pode continuar dando a a sua festa." </p>
+          <p>Então você teve que escolher qual grupo seria convidado a se retirar da sua festa! E aí? Qual seria o grupo que não faria tanta diferença se fosse embora da festa? </p>
+          <p>Clique em "Retirar".</p>
       </template>
       <template v-slot:router-btn>
         <router-link  class="btn--primary"
