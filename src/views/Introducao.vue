@@ -33,8 +33,7 @@ import {mapGetters, mapActions} from "vuex"
 export default {
   name: 'introducao',
   components: {
-    taskWording,
-    rawDisplayer
+    taskWording
   }
 }
 </script>
